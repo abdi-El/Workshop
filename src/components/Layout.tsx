@@ -1,6 +1,6 @@
-import { ProfileOutlined } from '@ant-design/icons'
-import { Layout, Menu, Row, theme } from 'antd'
-import React from 'react'
+import { LoadingOutlined, ProfileOutlined } from '@ant-design/icons'
+import { Layout, Menu, Row, Spin, theme } from 'antd'
+import React, { Suspense } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import '../main.css'
 
@@ -9,6 +9,19 @@ export const pathConstants = {
         key: '/estimates',
         label: 'Preventivi',
         icon: <ProfileOutlined />,
+    },
+    CUSTOMERS: {
+        key: '/customers',
+        label: 'Clienti',
+        icon: <ProfileOutlined />,
+    },
+    CARS: {
+        key: '/cars',
+        label: 'Autoveicoli',
+    },
+    SETTINGS: {
+        key: '/settings',
+        label: 'Impostazioni',
     },
 }
 
@@ -22,7 +35,7 @@ const BaseLayout: React.FC = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken()
-    const location = useLocation();
+    const location = useLocation()
     const navigate = useNavigate()
 
     return (
@@ -37,14 +50,14 @@ const BaseLayout: React.FC = () => {
                 }}
             >
                 <Row align={'middle'}>
-                  <Link to="/">
-                    <img
-                        src="/src/assets/logo.png"
-                        alt="logo of the app"
-                        height={'60px'}
-                        style={{marginRight: "10px"}}
-                    />
-                  </Link>
+                    <Link to="/">
+                        <img
+                            src="/src/assets/logo.png"
+                            alt="logo of the app"
+                            height={'60px'}
+                            style={{ marginRight: '10px' }}
+                        />
+                    </Link>
                 </Row>
                 <Menu
                     theme="dark"
@@ -65,7 +78,9 @@ const BaseLayout: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <Outlet />
+                    <Suspense fallback={<Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}>
+                        <Outlet />
+                    </Suspense>
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>

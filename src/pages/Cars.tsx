@@ -1,3 +1,3 @@
-export default function Home(){
+export default function CarsPage(){
     return <h1>Auto</h1>
 }
