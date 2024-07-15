@@ -1,4 +1,10 @@
-import { LoadingOutlined, ProfileOutlined } from '@ant-design/icons'
+import {
+    CarOutlined,
+    LoadingOutlined,
+    ProfileOutlined,
+    SettingOutlined,
+    UserOutlined,
+} from '@ant-design/icons'
 import { Layout, Menu, Row, Spin, theme } from 'antd'
 import React, { Suspense } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -13,15 +19,17 @@ export const pathConstants = {
     CUSTOMERS: {
         key: '/customers',
         label: 'Clienti',
-        icon: <ProfileOutlined />,
+        icon: <UserOutlined />,
     },
     CARS: {
         key: '/cars',
         label: 'Autoveicoli',
+        icon: <CarOutlined />,
     },
     SETTINGS: {
         key: '/settings',
         label: 'Impostazioni',
+        icon: <SettingOutlined />,
     },
 }
 
@@ -78,7 +86,18 @@ const BaseLayout: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <Suspense fallback={<Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}>
+                    <Suspense
+                        fallback={
+                            <Spin
+                                indicator={
+                                    <LoadingOutlined
+                                        style={{ fontSize: 48 }}
+                                        spin
+                                    />
+                                }
+                            />
+                        }
+                    >
                         <Outlet />
                     </Suspense>
                 </div>
