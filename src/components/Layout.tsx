@@ -39,6 +39,16 @@ let paths = Object.keys(pathConstants).map((label) => {
     return pathConstants[label as keyof typeof pathConstants]
 })
 
+function LoadingComponent() {
+    return (
+        <Row justify={'center'} align={'middle'}>
+            <Spin
+                indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />}
+            />
+        </Row>
+    )
+}
+
 const BaseLayout: React.FC = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -86,18 +96,7 @@ const BaseLayout: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <Suspense
-                        fallback={
-                            <Spin
-                                indicator={
-                                    <LoadingOutlined
-                                        style={{ fontSize: 48 }}
-                                        spin
-                                    />
-                                }
-                            />
-                        }
-                    >
+                    <Suspense fallback={<LoadingComponent />}>
                         <Outlet />
                     </Suspense>
                 </div>
