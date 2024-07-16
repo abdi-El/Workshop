@@ -65,16 +65,20 @@ const BaseLayout: React.FC = () => {
                     zIndex: 1,
                     width: '100%',
                     display: 'flex',
+                    paddingInline: 24,
                 }}
             >
                 <Row align={'middle'}>
-                    <Link to="/">
-                        <img
-                            src="/src/assets/logo.png"
-                            alt="logo of the app"
-                            height={'60px'}
-                            style={{ marginRight: '10px' }}
-                        />
+                    <Link
+                        to="/"
+                        style={{
+                            lineHeight: '100%',
+                            fontSize: 16,
+                            color: 'white',
+                            marginRight: 15,
+                        }}
+                    >
+                        Gestionale Officina
                     </Link>
                 </Row>
                 <Menu
