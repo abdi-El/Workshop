@@ -2,12 +2,12 @@ import { create } from 'zustand'
 import { Settings } from '../types/data'
 
 interface GlobalState {
-  settings: Settings | {}
-  updateSettings: (newSettings: Partial<Settings>) => void
+  settings: Settings
+  updateSettings: (newSettings: Settings) => void
 }
 
 const useGlobalStore = create<GlobalState>()((set) => ({
-  settings: {},
+  settings: {} as Settings,
   updateSettings: (newSettings) => {set((state) => ({ settings: {...state.settings, ...newSettings} }))},
 }))
 
