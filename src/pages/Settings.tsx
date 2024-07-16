@@ -1,3 +1,5 @@
+import SettingsForm from '../components/forms/SettingsForm'
+
 export default function SettingsPage() {
-    return <h1>Impostazioni</h1>
+    return <SettingsForm />
 }
