@@ -1,11 +1,13 @@
 import {
     CarOutlined,
     LoadingOutlined,
+    MoonOutlined,
     ProfileOutlined,
     SettingOutlined,
+    SunOutlined,
     UserOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu, Row, Spin, theme } from 'antd'
+import { Layout, Menu, Row, Spin, Switch, theme } from 'antd'
 import React, { Suspense } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
@@ -62,6 +64,12 @@ const BaseLayout: React.FC = () => {
         useShallow((state) => state.settings.workshop_name)
     )
 
+    const isDarkTheme = useGlobalStore(useShallow((state) => state.isDarkTheme))
+
+    function changeTheme(isDarkTheme: boolean) {
+        useGlobalStore.setState((state) => ({ isDarkTheme }))
+    }
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Header
@@ -71,6 +79,7 @@ const BaseLayout: React.FC = () => {
                     zIndex: 1,
                     width: '100%',
                     display: 'flex',
+                    alignItems: 'center',
                     paddingInline: 24,
                 }}
             >
@@ -96,6 +105,12 @@ const BaseLayout: React.FC = () => {
                         navigate(item.key)
                     }}
                     selectedKeys={[location.pathname]}
+                />
+                <Switch
+                    checkedChildren={<SunOutlined />}
+                    unCheckedChildren={<MoonOutlined />}
+                    defaultChecked={isDarkTheme}
+                    onChange={changeTheme}
                 />
             </Header>
             <Content style={{ padding: '10px 10px' }}>
