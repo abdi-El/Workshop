@@ -34,7 +34,7 @@ export default function SettingsForm() {
             </Form.Item>
             <Form.Item
                 label="Indirizzo"
-                name="address"
+                name="workshop_address"
                 rules={[
                     {
                         required: true,
@@ -68,27 +68,25 @@ export default function SettingsForm() {
                         <InputNumber placeholder="20" prefix="€" />
                     </Form.Item>
                 </Col>
-                <Col>
-                    <Col span={12}>
-                        <Form.Item
-                            label="Prezzo base ora"
-                            name="iva"
-                            initialValue={22}
-                            rules={[
-                                {
-                                    required: true,
-                                },
-                            ]}
-                        >
-                            <InputNumber defaultValue={22} prefix="%" />
-                        </Form.Item>
-                    </Col>
+                <Col span={12}>
+                    <Form.Item
+                        label="Prezzo base ora"
+                        name="iva"
+                        initialValue={22}
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <InputNumber defaultValue={22} prefix="%" />
+                    </Form.Item>
                 </Col>
             </Row>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Aggiorna dati
+                    {settings ? 'Aggiorna dati' : 'Imposta dati'}
                 </Button>
             </Form.Item>
         </Form>
