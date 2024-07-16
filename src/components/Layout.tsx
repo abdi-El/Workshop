@@ -8,7 +8,9 @@ import {
 import { Layout, Menu, Row, Spin, theme } from 'antd'
 import React, { Suspense } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useShallow } from 'zustand/react/shallow'
 import '../main.css'
+import useGlobalStore from '../stores/GlobalStore'
 
 export const pathConstants = {
     ESTIMATES: {
@@ -56,6 +58,10 @@ const BaseLayout: React.FC = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
+    const workshopName = useGlobalStore(
+        useShallow((state) => state.settings.workshop_name)
+    )
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Header
@@ -78,7 +84,7 @@ const BaseLayout: React.FC = () => {
                             marginRight: 15,
                         }}
                     >
-                        Gestionale Officina
+                        {workshopName || 'Gestionale Officina'}
                     </Link>
                 </Row>
                 <Menu

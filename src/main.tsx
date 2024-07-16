@@ -1,9 +1,9 @@
+import { ConfigProvider, theme } from 'antd'
+import itIT from 'antd/locale/it_IT'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
-
-import { ConfigProvider, theme } from 'antd'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
@@ -11,6 +11,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             theme={{
                 algorithm: theme.darkAlgorithm,
             }}
+            locale={itIT}
         >
             <RouterProvider router={router} />
         </ConfigProvider>
