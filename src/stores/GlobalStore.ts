@@ -1,20 +1,19 @@
 import { create } from 'zustand'
-import { Settings } from '../types/store'
+import { Settings } from '../types/data'
 
-interface SettingsState {
+interface GlobalState {
   settings: Settings
-  isDarkTheme: boolean
-  updateSettings: (newSettings: any) => void
+  updateSettings: (newSettings: Partial<Settings>) => void
 }
 
-const useGlobalStore = create<SettingsState>()((set) => ({
+const useGlobalStore = create<GlobalState>()((set) => ({
   settings: {
     workshop_name: "Officina Leporatti",
     p_iva: "3215464",
     address: "via ghibellina 20",
+    isDarkTheme: true,
   },
-  updateSettings: (newSettings) => set((state) => ({ settings: {...state.settings, ...newSettings} })),
-  isDarkTheme: true,
+  updateSettings: (newSettings) => {set((state) => ({ settings: {...state.settings, ...newSettings} }))},
 }))
 
 export default useGlobalStore

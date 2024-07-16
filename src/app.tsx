@@ -7,7 +7,9 @@ import { router } from './router'
 import useGlobalStore from './stores/GlobalStore'
 
 export default function App() {
-    const isDarkTheme = useGlobalStore(useShallow((state) => state.isDarkTheme))
+    const isDarkTheme = useGlobalStore(
+        useShallow((state) => state.settings.isDarkTheme)
+    )
     return (
         <ConfigProvider
             theme={{
