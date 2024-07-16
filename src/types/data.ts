@@ -3,4 +3,6 @@ export interface Settings {
     address: string, 
     p_iva: string,
     isDarkTheme: boolean
+    workforce_price: number
+    iva: number,
 }

@@ -7,7 +7,7 @@ interface GlobalState {
 }
 
 const useGlobalStore = create<GlobalState>()((set) => ({
-  settings: {} as Settings,
+  settings: {isDarkTheme: true} as Settings,
   updateSettings: (newSettings) => {set((state) => ({ settings: {...state.settings, ...newSettings} }))},
 }))
 

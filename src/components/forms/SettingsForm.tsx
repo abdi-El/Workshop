@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, message } from 'antd'
+import { Button, Col, Form, Input, InputNumber, message, Row } from 'antd'
 import { useShallow } from 'zustand/react/shallow'
 import useGlobalStore from '../../stores/GlobalStore'
 import { Settings } from '../../types/data'
@@ -54,18 +54,37 @@ export default function SettingsForm() {
             >
                 <Input placeholder="Esempio: 0789746532" />
             </Form.Item>
-
-            <Form.Item
-                label="Prezzo base ora"
-                name="default_workforce_price"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <InputNumber placeholder="20" prefix="€" />
-            </Form.Item>
+            <Row>
+                <Col span={12}>
+                    <Form.Item
+                        label="Prezzo base ora"
+                        name="workforce_price"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <InputNumber placeholder="20" prefix="€" />
+                    </Form.Item>
+                </Col>
+                <Col>
+                    <Col span={12}>
+                        <Form.Item
+                            label="Prezzo base ora"
+                            name="iva"
+                            initialValue={22}
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            <InputNumber defaultValue={22} prefix="%" />
+                        </Form.Item>
+                    </Col>
+                </Col>
+            </Row>
 
             <Form.Item>
                 <Button type="primary" htmlType="submit">
