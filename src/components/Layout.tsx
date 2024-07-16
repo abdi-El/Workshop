@@ -5,8 +5,8 @@ import {
     SettingOutlined,
     UserOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu, Row, Spin, theme } from 'antd'
-import React, { Suspense } from 'react'
+import { Layout, Menu, message, Row, Spin, theme } from 'antd'
+import React, { Suspense, useEffect } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import '../main.css'
@@ -62,6 +62,13 @@ const BaseLayout: React.FC = () => {
     const workshopName = useGlobalStore(
         useShallow((state) => state.settings.workshop_name)
     )
+
+    useEffect(() => {
+        if (!workshopName && location.pathname != '/settings') {
+            message.error('È necessario settare impostare i dati iniziali')
+            navigate('/settings')
+        }
+    }, [workshopName, location])
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
