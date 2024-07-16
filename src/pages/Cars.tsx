@@ -1,3 +1,5 @@
-export default function CarsPage(){
-    return <h1>Auto</h1>
+import CarsTable from '../components/tables/CarsTable'
+
+export default function CarsPage() {
+    return <CarsTable />
 }

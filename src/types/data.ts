@@ -6,3 +6,11 @@ export interface Settings {
     workforce_price: number
     iva: number,
 }
+
+export interface Car {
+    maker: string
+    model: string
+    number_plate: string
+    km: number
+    owner: string
+}
