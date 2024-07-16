@@ -3,7 +3,7 @@ import { Settings } from '../types/data'
 
 interface GlobalState {
   settings: Settings
-  updateSettings: (newSettings: Settings) => void
+  updateSettings: (newSettings: Partial<Settings>) => void
 }
 
 const useGlobalStore = create<GlobalState>()((set) => ({
