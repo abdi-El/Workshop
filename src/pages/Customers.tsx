@@ -1,3 +1,5 @@
+import CustomersTable from '../components/tables/CustomersTable'
+
 export default function CustomersPage() {
-    return <h1>Clienti</h1>
+    return <CustomersTable />
 }

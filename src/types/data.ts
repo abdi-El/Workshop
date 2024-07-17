@@ -14,3 +14,9 @@ export interface Car {
     km: number
     owner: string
 }
+
+export interface Customer {
+    name: string
+    email: string
+    phone_number: string
+}

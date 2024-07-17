@@ -34,15 +34,12 @@ export const getColumnSearchProps = (
                 <Button
                     type="primary"
                     onClick={() => {
-                        confirm()
+                        confirm({ closeDropdown: false })
                         setSearchText(selectedKeys[0])
                         setSearchedColumn(dataIndex)
                     }}
-                    icon={<SearchOutlined />}
-                    size="small"
-                    style={{ width: 90 }}
                 >
-                    Search
+                    Filtra
                 </Button>
                 <Button
                     onClick={() => {
@@ -51,21 +48,8 @@ export const getColumnSearchProps = (
                             setSearchText('')
                         }
                     }}
-                    size="small"
-                    style={{ width: 90 }}
                 >
                     Reset
-                </Button>
-                <Button
-                    type="link"
-                    size="small"
-                    onClick={() => {
-                        confirm({ closeDropdown: false })
-                        setSearchText((selectedKeys as string[])[0])
-                        setSearchedColumn(dataIndex)
-                    }}
-                >
-                    Filter
                 </Button>
                 <Button
                     type="link"
@@ -74,7 +58,7 @@ export const getColumnSearchProps = (
                         close()
                     }}
                 >
-                    close
+                    Chiudi
                 </Button>
             </Space>
         </div>
