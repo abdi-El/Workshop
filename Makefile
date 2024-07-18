@@ -9,3 +9,7 @@ build:
 .PHONY: build-dist
 build-dist:
 	yarn tauri build
+
+.PHONY: delete_db
+delete_db:
+	rm -rf ~/.config/com.ab.workshop/workshop.*

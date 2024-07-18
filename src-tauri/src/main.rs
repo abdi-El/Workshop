@@ -8,7 +8,12 @@ fn main() {
         Migration {
             version: 1,
             description: "create_initial_tables",
-            sql: "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, email TEXT, phone_number TEXT);",
+            sql: "CREATE TABLE customers (
+                id INTEGER PRIMARY KEY, 
+                name TEXT NOT NULL, 
+                email TEXT UNIQUE NOT NULL, 
+                phone_number TEXT UNIQUE NOT NULL
+            );",
             kind: MigrationKind::Up,
         },
         Migration {
