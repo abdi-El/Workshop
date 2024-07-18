@@ -3,7 +3,7 @@ import type { InputRef, TableColumnsType } from 'antd'
 import { Button, message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { customers } from '../../db/models'
-import useCustomesStore from '../../stores/DatabaseStore'
+import { useCustomesStore } from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 import { getColumnSearchProps } from '../utils'
 

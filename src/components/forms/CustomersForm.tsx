@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from 'antd'
 import { customers } from '../../db/models'
-import useCustomesStore from '../../stores/DatabaseStore'
+import { useCustomesStore } from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
 export default function CustomersForm() {

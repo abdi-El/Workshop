@@ -1,16 +1,15 @@
 import { Button, Form, Input, InputNumber, message } from 'antd'
-import { customers } from '../../db/models'
-import useCustomesStore from '../../stores/DatabaseStore'
+import { cars } from '../../db/models'
+import { useCarsStore } from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 import CustomerSelect from '../selects/CustomerSelect'
 
 export default function CarsForm() {
     const [form] = Form.useForm()
-    const refetch = useCustomesStore((state) => state.refetch)
+    const refetch = useCarsStore((state) => state.refetch)
 
     function onFinish(values: Car) {
-        customers
-            .create(values)
+        cars.create(values)
             .then(() => {
                 refetch()
                 message.success('Auto creata correttamente')
@@ -27,17 +26,7 @@ export default function CarsForm() {
             onFinish={onFinish}
             name="CarsForm"
         >
-            <Form.Item
-                label="Proprietario"
-                name="owner_id"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <CustomerSelect />
-            </Form.Item>
+            <CustomerSelect />
 
             <Form.Item
                 label="marca"
