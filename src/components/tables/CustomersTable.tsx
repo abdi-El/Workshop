@@ -1,10 +1,10 @@
-import { DeleteOutlined } from '@ant-design/icons'
 import type { InputRef, TableColumnsType } from 'antd'
-import { Button, message, Table } from 'antd'
+import { message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { customers } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
+import ActionButtons from '../buttons/ActionButtons'
 import { getColumnSearchProps } from '../utils'
 
 const CustomersTable: React.FC = () => {
@@ -54,21 +54,19 @@ const CustomersTable: React.FC = () => {
             title: 'Azioni',
             render: (row) => {
                 return (
-                    <>
-                        <Button
-                            type="primary"
-                            danger
-                            icon={<DeleteOutlined />}
-                            onClick={() =>
-                                customers.delete(row.id).then(() => {
-                                    message.success(
-                                        'Utente eliminato correttamente'
-                                    )
-                                    refetch()
-                                })
-                            }
-                        ></Button>
-                    </>
+                    <ActionButtons
+                        onDelete={() => {
+                            customers.delete(row.id).then(() => {
+                                message.success(
+                                    'Utente eliminato correttamente'
+                                )
+                                refetch()
+                            })
+                        }}
+                        onEdit={() => {
+                            message.success('edit clicked')
+                        }}
+                    />
                 )
             },
         },
