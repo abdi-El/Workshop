@@ -10,7 +10,21 @@ fn main() {
             description: "create_initial_tables",
             sql: "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, email TEXT, phone_number TEXT);",
             kind: MigrationKind::Up,
-        }
+        },
+        Migration {
+            version: 2,
+            description: "create_cars_table",
+            sql: "CREATE TABLE cars (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                maker TEXT NOT NULL,
+                model TEXT NOT NULL,
+                number_plate TEXT UNIQUE NOT NULL,
+                km INTEGER NOT NULL,
+                owner_id INTEGER NOT NULL,
+                FOREIGN KEY (owner_id) REFERENCES customers(id)
+            );",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()

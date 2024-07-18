@@ -5,3 +5,9 @@ export class Customers extends Model {
         super("customers");
     }
 }
+
+export class Cars extends Model {
+    public constructor(){
+        super("cars");
+    }
+}
