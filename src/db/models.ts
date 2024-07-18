@@ -1,13 +1,4 @@
 import { Model } from "./utils";
 
-export class Customers extends Model {
-    public constructor(){
-        super("customers");
-    }
-}
-
-export class Cars extends Model {
-    public constructor(){
-        super("cars");
-    }
-}
+export const customers = new Model("customers")
+export const cars = new Model("cars")

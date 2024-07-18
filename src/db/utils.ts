@@ -69,11 +69,16 @@ export class Model {
     }
 
     public async update( data: SimpleObject, id: number){
-        await this.createOrUpdate(this.getUpdateQuery(data), [Object.values(data), id])
+        await this.createOrUpdate(this.getUpdateQuery(data), [...Object.values(data), id])
     }
 
     public async create(data:SimpleObject){
-        await this.createOrUpdate(this.getCreateQuery(data), [Object.values(data)])
+        await this.createOrUpdate(this.getCreateQuery(data), Object.values(data))
+    }
+
+    public async delete(id: number){
+        let db = await this.getDbInstance()
+        return await db.execute(`DELETE FROM ${this.tableName} WHERE id=$1`, [id]);
     }
 }
 
