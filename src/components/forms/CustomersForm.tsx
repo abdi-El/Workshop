@@ -6,9 +6,14 @@ export default function CustomersForm() {
     const [form] = Form.useForm()
 
     function onFinish(values: Customer) {
-        customers.create(values).then((res) => {
-            message.success('Utente Creato')
-        })
+        customers
+            .create(values)
+            .then(() => {
+                message.success('Utente creato correttamente')
+            })
+            .catch(() => {
+                message.error('Qualcosa è andato stroto')
+            })
     }
 
     return (

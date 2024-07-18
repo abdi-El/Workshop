@@ -9,7 +9,12 @@ let initialSettings = JSON.parse(localStorage.getItem("settings") || "{}")
 
 const useGlobalStore = create<GlobalState>()((set) => ({
   settings: initialSettings as Settings,
-  updateSettings: (newSettings) => {set((state) => ({ settings: {...state.settings, ...newSettings} }))},
+  updateSettings: (newSettings) => {
+    set((state) => {
+      let newStateSettings = {...state.settings, ...newSettings} 
+      localStorage.setItem("settings", JSON.stringify(newStateSettings))
+      return { settings: newStateSettings }} )
+  },
 }))
 
 export default useGlobalStore
