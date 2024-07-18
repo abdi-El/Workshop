@@ -5,7 +5,6 @@ use tauri_plugin_sql::{Migration, MigrationKind};
 
 fn main() {
     let migrations = vec![
-        // Define your migrations here
         Migration {
             version: 1,
             description: "create_initial_tables",
@@ -17,7 +16,7 @@ fn main() {
     tauri::Builder::default()
         .plugin(
             tauri_plugin_sql::Builder::default()
-                .add_migrations("sqlite:mydatabase.db", migrations)
+                .add_migrations("sqlite:workshop.db", migrations)
                 .build(),
         )
         .run(tauri::generate_context!())

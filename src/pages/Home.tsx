@@ -2,7 +2,7 @@ import { Button, message } from 'antd'
 
 export default function HomePage() {
     function greet() {
-        message.success('HI!')
+        message.success('THIS IS A TEST')
     }
 
     return (

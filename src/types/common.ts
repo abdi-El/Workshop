@@ -1,0 +1,1 @@
+export type SimpleObject = { [key: string]: any }
