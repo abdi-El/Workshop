@@ -10,6 +10,7 @@ export default function SettingsForm() {
 
     function onFinish(values: Settings) {
         updateSettings(values)
+        localStorage.setItem('settings', JSON.stringify(values))
         message.success('Impostazioni aggiornate')
     }
 

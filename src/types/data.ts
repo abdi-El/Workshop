@@ -12,7 +12,7 @@ export interface Car {
     model: string
     number_plate: string
     km: number
-    owner: string
+    owner: number
 }
 
 export interface Customer {

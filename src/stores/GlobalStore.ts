@@ -5,9 +5,10 @@ interface GlobalState {
   settings: Settings
   updateSettings: (newSettings: Partial<Settings>) => void
 }
+let initialSettings = JSON.parse(localStorage.getItem("settings") || "{}")
 
 const useGlobalStore = create<GlobalState>()((set) => ({
-  settings: {isDarkTheme: true} as Settings,
+  settings: initialSettings as Settings,
   updateSettings: (newSettings) => {set((state) => ({ settings: {...state.settings, ...newSettings} }))},
 }))
 
