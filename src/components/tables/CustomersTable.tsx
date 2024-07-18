@@ -1,8 +1,9 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type { InputRef, TableColumnsType } from 'antd'
-import { Button, Table } from 'antd'
-import React, { useEffect, useRef, useState } from 'react'
+import { Button, message, Table } from 'antd'
+import React, { useRef, useState } from 'react'
 import { customers } from '../../db/models'
+import useCustomesStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 import { getColumnSearchProps } from '../utils'
 
@@ -10,14 +11,8 @@ const CustomersTable: React.FC = () => {
     const [searchText, setSearchText] = useState('')
     const [searchedColumn, setSearchedColumn] = useState('')
     const searchInput = useRef<InputRef>(null)
-
-    const [data, setData] = useState<Customer[]>()
-
-    useEffect(() => {
-        customers.getAll().then((res) => {
-            setData(res as Customer[])
-        })
-    }, [])
+    const data = useCustomesStore((state) => state.customers)
+    const refetch = useCustomesStore((state) => state.refetch)
 
     const columns: TableColumnsType<Customer> = [
         {
@@ -64,9 +59,14 @@ const CustomersTable: React.FC = () => {
                             type="primary"
                             danger
                             icon={<DeleteOutlined />}
-                            onClick={() => {
-                                customers.delete(row.id)
-                            }}
+                            onClick={() =>
+                                customers.delete(row.id).then(() => {
+                                    message.success(
+                                        'Utente eliminato correttamente'
+                                    )
+                                    refetch()
+                                })
+                            }
                         ></Button>
                     </>
                 )

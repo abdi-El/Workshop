@@ -1,14 +1,17 @@
 import { Button, Form, Input, message } from 'antd'
 import { customers } from '../../db/models'
+import useCustomesStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
 export default function CustomersForm() {
     const [form] = Form.useForm()
+    const refetch = useCustomesStore((state) => state.refetch)
 
     function onFinish(values: Customer) {
         customers
             .create(values)
             .then(() => {
+                refetch()
                 message.success('Utente creato correttamente')
             })
             .catch(() => {
