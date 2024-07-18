@@ -1,3 +1,7 @@
+interface DataBaseInterface {
+    id: number
+}
+
 export interface Settings {
     workshop_name: string,
     workshop_address: string, 
@@ -7,7 +11,7 @@ export interface Settings {
     iva: number,
 }
 
-export interface Car {
+export interface Car extends DataBaseInterface {
     maker: string
     model: string
     number_plate: string
@@ -15,7 +19,7 @@ export interface Car {
     owner: number
 }
 
-export interface Customer {
+export interface Customer extends DataBaseInterface{
     name: string
     email: string
     phone_number: string
