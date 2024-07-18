@@ -16,6 +16,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.1",
+    "tauri-plugin-sql-api": "https://github.com/tauri-apps/tauri-plugin-sql#v1",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
