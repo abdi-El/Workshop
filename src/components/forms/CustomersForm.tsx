@@ -1,9 +1,14 @@
 import { Button, Form, Input, message } from 'antd'
+import { useEffect } from 'react'
 import { customers } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
-export default function CustomersForm() {
+interface Props {
+    cusomerId?: Customer['id']
+}
+
+export default function CustomersForm(props: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCustomers)
 
@@ -18,6 +23,17 @@ export default function CustomersForm() {
                 message.error('Qualcosa è andato stroto')
             })
     }
+
+    useEffect(() => {
+        if (props.cusomerId) {
+            let data = useDatabaseStore((state) => state.customers)
+            form.setFieldsValue(
+                data.filter((customer) => {
+                    return customer.id == props.cusomerId
+                })
+            )
+        }
+    }, [])
 
     return (
         <Form

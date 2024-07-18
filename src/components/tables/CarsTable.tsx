@@ -1,14 +1,17 @@
 import type { InputRef, TableColumnsType } from 'antd'
-import { Table } from 'antd'
+import { message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
+import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
+import ActionButtons from '../buttons/ActionButtons'
 import { getColumnSearchProps } from '../utils'
 
 const CarsTable: React.FC = () => {
     const [searchText, setSearchText] = useState('')
     const [searchedColumn, setSearchedColumn] = useState('')
     const data = useDatabaseStore((state) => state.cars)
+    const refetch = useDatabaseStore((state) => state.refetchCars)
     const searchInput = useRef<InputRef>(null)
 
     const columns: TableColumnsType<Car> = [
@@ -42,6 +45,24 @@ const CarsTable: React.FC = () => {
             key: 'km',
             sorter: (a, b) => a.km - b.km,
             sortDirections: ['descend', 'ascend'],
+        },
+        {
+            title: 'Azioni',
+            render: (row) => {
+                return (
+                    <ActionButtons
+                        onDelete={() => {
+                            cars.delete(row.id).then(() => {
+                                message.success('Auto eliminata correttamente')
+                                refetch()
+                            })
+                        }}
+                        onEdit={() => {
+                            message.success('edit clicked')
+                        }}
+                    />
+                )
+            },
         },
     ]
 
