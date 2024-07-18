@@ -26,7 +26,7 @@ fn main() {
                 number_plate TEXT UNIQUE NOT NULL,
                 km INTEGER NOT NULL,
                 owner_id INTEGER NOT NULL,
-                FOREIGN KEY (owner_id) REFERENCES customers(id)
+                FOREIGN KEY (owner_id) REFERENCES customers(id) ON DELETE CASCADE
             );",
             kind: MigrationKind::Up,
         },
