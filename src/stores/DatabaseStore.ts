@@ -2,32 +2,31 @@ import { create } from 'zustand'
 import { cars, customers } from '../db/models'
 import { Car, Customer } from '../types/data'
 
-interface CustomerState {
+interface StoreState {
   customers: Customer[]
-  refetch: ()=>void
-}
-interface CarsState {
   cars: Car[]
-  refetch: ()=>void
+  refetchCustomers: () => void
+  refetchCars: () => void
 }
 
-export const useCustomesStore = create<CustomerState>()((set) => ({
+const useDatabaseStore = create<StoreState>((set) => ({
   customers: [],
-  refetch: () => {
-    customers.getAll().then((res)=>set((state) => ({ customers: res as Customer[] })))
-  },
-}))
-
-export const useCarsStore = create<CarsState>()((set) => ({
   cars: [],
-  refetch: () => {
-    cars.getAll().then((res)=>set((state) => ({ cars: res as Car[] })))
+  refetchCustomers: () => {
+    customers.getAll().then((res) => set({ customers: res as Customer[] }))
+    useDatabaseStore.getState().refetchCars();
+  },
+  refetchCars: () => {
+    cars.getAll().then((res) => set({ cars: res as Car[] }))
   },
 }))
 
-customers.getAll().then((res)=>{
-    useCustomesStore.setState({customers:res as Customer[]})
+// Initial fetching of data
+customers.getAll().then((res) => {
+  useDatabaseStore.setState({ customers: res as Customer[] })
 })
-cars.getAll().then((res)=>{
-  useCustomesStore.setState({customers:res as Customer[]})
+cars.getAll().then((res) => {
+  useDatabaseStore.setState({ cars: res as Car[] })
 })
+
+export default useDatabaseStore

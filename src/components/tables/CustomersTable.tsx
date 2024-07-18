@@ -3,7 +3,7 @@ import type { InputRef, TableColumnsType } from 'antd'
 import { Button, message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { customers } from '../../db/models'
-import { useCustomesStore } from '../../stores/DatabaseStore'
+import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 import { getColumnSearchProps } from '../utils'
 
@@ -11,8 +11,8 @@ const CustomersTable: React.FC = () => {
     const [searchText, setSearchText] = useState('')
     const [searchedColumn, setSearchedColumn] = useState('')
     const searchInput = useRef<InputRef>(null)
-    const data = useCustomesStore((state) => state.customers)
-    const refetch = useCustomesStore((state) => state.refetch)
+    const data = useDatabaseStore((state) => state.customers)
+    const refetch = useDatabaseStore((state) => state.refetchCustomers)
 
     const columns: TableColumnsType<Customer> = [
         {

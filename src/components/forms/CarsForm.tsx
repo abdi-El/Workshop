@@ -1,12 +1,12 @@
 import { Button, Form, Input, InputNumber, message } from 'antd'
 import { cars } from '../../db/models'
-import { useCarsStore } from '../../stores/DatabaseStore'
+import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 import CustomerSelect from '../selects/CustomerSelect'
 
 export default function CarsForm() {
     const [form] = Form.useForm()
-    const refetch = useCarsStore((state) => state.refetch)
+    const refetch = useDatabaseStore((state) => state.refetchCars)
 
     function onFinish(values: Car) {
         cars.create(values)

@@ -1,10 +1,10 @@
 import { Select } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
-import { useCustomesStore } from '../../stores/DatabaseStore'
+import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
 export default function CustomerSelect() {
-    const customers: Customer[] = useCustomesStore((state) => state.customers)
+    const customers: Customer[] = useDatabaseStore((state) => state.customers)
 
     return (
         <FormItem

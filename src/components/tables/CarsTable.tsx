@@ -1,14 +1,14 @@
 import type { InputRef, TableColumnsType } from 'antd'
 import { Table } from 'antd'
 import React, { useRef, useState } from 'react'
-import { useCarsStore } from '../../stores/DatabaseStore'
+import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 import { getColumnSearchProps } from '../utils'
 
 const CarsTable: React.FC = () => {
     const [searchText, setSearchText] = useState('')
     const [searchedColumn, setSearchedColumn] = useState('')
-    const data = useCarsStore((state) => state.cars)
+    const data = useDatabaseStore((state) => state.cars)
     const searchInput = useRef<InputRef>(null)
 
     const columns: TableColumnsType<Car> = [

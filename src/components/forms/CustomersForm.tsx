@@ -1,11 +1,11 @@
 import { Button, Form, Input, message } from 'antd'
 import { customers } from '../../db/models'
-import { useCustomesStore } from '../../stores/DatabaseStore'
+import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
 export default function CustomersForm() {
     const [form] = Form.useForm()
-    const refetch = useCustomesStore((state) => state.refetch)
+    const refetch = useDatabaseStore((state) => state.refetchCustomers)
 
     function onFinish(values: Customer) {
         customers
