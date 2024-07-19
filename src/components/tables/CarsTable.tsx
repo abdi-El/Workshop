@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
+import useGlobalStore from '../../stores/GlobalStore'
 import { Car } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
 import { pathConstants } from '../Layout'
@@ -16,6 +17,8 @@ const CarsTable: React.FC = () => {
     const refetch = useDatabaseStore((state) => state.refetchCars)
     const searchInput = useRef<InputRef>(null)
     const navigate = useNavigate()
+    const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
+
     const columns: TableColumnsType<Car> = [
         {
             title: 'Targa',
@@ -61,6 +64,7 @@ const CarsTable: React.FC = () => {
                         }}
                         onEdit={() => {
                             navigate(`${pathConstants.CARS.key}/${row.id}`)
+                            setDrawerOpen(true)
                         }}
                     />
                 )

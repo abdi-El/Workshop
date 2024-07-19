@@ -31,7 +31,7 @@ export default function CarsForm({ carId }: Props) {
                 data.filter((car) => car.id == parseInt(carId))[0]
             )
         }
-    }, [])
+    }, [carId])
 
     return (
         <Form

@@ -1,13 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Drawer, FloatButton } from 'antd'
-import { useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
+import useGlobalStore from '../../stores/GlobalStore'
 
 type Props = {
     children: JSX.Element | JSX.Element[]
 }
 
 export default function DrawerForm(props: Props) {
-    const [drawerOpen, setDrawerOpen] = useState(false)
+    const drawerOpen = useGlobalStore(useShallow((state) => state.drawerState))
+    const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
 
     return (
         <>
