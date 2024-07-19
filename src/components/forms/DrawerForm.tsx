@@ -5,6 +5,7 @@ import useGlobalStore from '../../stores/GlobalStore'
 
 type Props = {
     children: JSX.Element | JSX.Element[]
+    onClose?(): void
 }
 
 export default function DrawerForm(props: Props) {
@@ -21,6 +22,7 @@ export default function DrawerForm(props: Props) {
                 title="Dati:"
                 onClose={() => {
                     setDrawerOpen(false)
+                    props.onClose!()
                 }}
                 open={drawerOpen}
             >

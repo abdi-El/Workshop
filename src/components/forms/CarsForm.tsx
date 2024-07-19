@@ -55,6 +55,8 @@ export default function CarsForm({ carId, onFinish }: Props) {
             form.setFieldsValue(
                 data.filter((car) => car.id == parseInt(carId))[0]
             )
+        } else {
+            form.resetFields()
         }
     }, [carId])
 
