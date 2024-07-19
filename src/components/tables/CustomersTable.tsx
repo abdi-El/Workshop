@@ -1,10 +1,13 @@
 import type { InputRef, TableColumnsType } from 'antd'
 import { message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { customers } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
+import useGlobalStore from '../../stores/GlobalStore'
 import { Customer } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
+import { pathConstants } from '../Layout'
 import { getColumnSearchProps } from '../utils'
 
 const CustomersTable: React.FC = () => {
@@ -13,6 +16,8 @@ const CustomersTable: React.FC = () => {
     const searchInput = useRef<InputRef>(null)
     const data = useDatabaseStore((state) => state.customers)
     const refetch = useDatabaseStore((state) => state.refetchCustomers)
+    const navigate = useNavigate()
+    const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
 
     const columns: TableColumnsType<Customer> = [
         {
@@ -64,7 +69,8 @@ const CustomersTable: React.FC = () => {
                             })
                         }}
                         onEdit={() => {
-                            message.success('edit clicked')
+                            navigate(`${pathConstants.CUSTOMERS.key}/${row.id}`)
+                            setDrawerOpen(true)
                         }}
                     />
                 )

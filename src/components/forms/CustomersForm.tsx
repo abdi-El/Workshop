@@ -5,35 +5,61 @@ import useDatabaseStore from '../../stores/DatabaseStore'
 import { Customer } from '../../types/data'
 
 interface Props {
-    cusomerId?: Customer['id']
+    customerId?: Customer['id']
+    onFinish?(): void
 }
 
 export default function CustomersForm(props: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCustomers)
+    let data = useDatabaseStore((state) => state.customers)
 
-    function onFinish(values: Customer) {
+    function onSuccess() {
+        refetch()
+        props.onFinish!()
+        form.resetFields()
+    }
+
+    function createCustomer(values: Car) {
         customers
             .create(values)
             .then(() => {
-                refetch()
-                message.success('Utente creato correttamente')
+                onSuccess()
+                message.success('Cliente creto correttamente')
+            })
+            .catch((err) => {
+                message.error(JSON.stringify(err))
+            })
+    }
+    function updateCostomer(values: Customer, costomerId: number) {
+        customers
+            .update(values, costomerId)
+            .then(() => {
+                onSuccess()
+                message.success('Cliente aggiornato correttamente')
             })
             .catch((err) => {
                 message.error(JSON.stringify(err))
             })
     }
 
-    useEffect(() => {
-        if (props.cusomerId) {
-            let data = useDatabaseStore((state) => state.customers)
-            form.setFieldsValue(
-                data.filter((customer) => {
-                    return customer.id == props.cusomerId
-                })
-            )
+    function onFinish(values: Customer) {
+        if (!props.customerId) {
+            createCustomer(values)
+        } else {
+            updateCostomer(values, props.customerId)
         }
-    }, [])
+    }
+
+    useEffect(() => {
+        if (props.customerId) {
+            form.setFieldsValue(
+                data.filter((car) => car.id == props.customerId)[0]
+            )
+        } else {
+            form.resetFields()
+        }
+    }, [props.customerId])
 
     return (
         <Form
@@ -84,7 +110,7 @@ export default function CustomersForm(props: Props) {
                     htmlType="submit"
                     style={{ width: '100%' }}
                 >
-                    Crea utente
+                    {!props.customerId ? 'Crea cliente' : 'Aggiorna cliente'}
                 </Button>
             </Form.Item>
         </Form>
