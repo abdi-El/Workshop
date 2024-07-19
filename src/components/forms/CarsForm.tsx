@@ -7,17 +7,24 @@ import CustomerSelect from '../selects/CustomerSelect'
 
 interface Props {
     carId?: number
+    onFinish?(): void
 }
 
-export default function CarsForm({ carId }: Props) {
+export default function CarsForm({ carId, onFinish }: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCars)
     let data = useDatabaseStore((state) => state.cars)
 
+    function onSuccess() {
+        refetch()
+        onFinish!()
+        form.resetFields()
+    }
+
     function createCar(values: Car) {
         cars.create(values)
             .then(() => {
-                refetch()
+                onSuccess()
                 message.success('Auto creata correttamente')
             })
             .catch((err) => {
@@ -27,7 +34,7 @@ export default function CarsForm({ carId }: Props) {
     function updateCar(values: Car, carId: number) {
         cars.update(values, carId)
             .then(() => {
-                refetch()
+                onSuccess()
                 message.success('Auto aggiornata correttamente')
             })
             .catch((err) => {
@@ -35,7 +42,7 @@ export default function CarsForm({ carId }: Props) {
             })
     }
 
-    function onFinish(values: Car) {
+    function onSubmit(values: Car) {
         if (!carId) {
             createCar(values)
         } else {
@@ -55,7 +62,7 @@ export default function CarsForm({ carId }: Props) {
         <Form
             layout={'horizontal'}
             form={form}
-            onFinish={onFinish}
+            onFinish={onSubmit}
             name="CarsForm"
         >
             <CustomerSelect />
