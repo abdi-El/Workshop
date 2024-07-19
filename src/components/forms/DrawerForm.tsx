@@ -18,7 +18,7 @@ export default function DrawerForm(props: Props) {
                 onClick={() => setDrawerOpen(true)}
             />
             <Drawer
-                title="Crea un nuovo utente"
+                title="Dati:"
                 onClose={() => {
                     setDrawerOpen(false)
                 }}

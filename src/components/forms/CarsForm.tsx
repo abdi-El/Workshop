@@ -6,7 +6,7 @@ import { Car } from '../../types/data'
 import CustomerSelect from '../selects/CustomerSelect'
 
 interface Props {
-    carId?: string
+    carId?: number
 }
 
 export default function CarsForm({ carId }: Props) {
@@ -14,7 +14,7 @@ export default function CarsForm({ carId }: Props) {
     const refetch = useDatabaseStore((state) => state.refetchCars)
     let data = useDatabaseStore((state) => state.cars)
 
-    function onFinish(values: Car) {
+    function createCar(values: Car) {
         cars.create(values)
             .then(() => {
                 refetch()
@@ -23,6 +23,24 @@ export default function CarsForm({ carId }: Props) {
             .catch((err) => {
                 message.error(JSON.stringify(err))
             })
+    }
+    function updateCar(values: Car, carId: number) {
+        cars.update(values, carId)
+            .then(() => {
+                refetch()
+                message.success('Auto aggiornata correttamente')
+            })
+            .catch((err) => {
+                message.error(JSON.stringify(err))
+            })
+    }
+
+    function onFinish(values: Car) {
+        if (!carId) {
+            createCar(values)
+        } else {
+            updateCar(values, carId)
+        }
     }
 
     useEffect(() => {
@@ -93,7 +111,7 @@ export default function CarsForm({ carId }: Props) {
                     htmlType="submit"
                     style={{ width: '100%' }}
                 >
-                    Crea auto
+                    {!carId ? 'Crea auto' : 'Aggiorna dati auto'}
                 </Button>
             </Form.Item>
         </Form>
