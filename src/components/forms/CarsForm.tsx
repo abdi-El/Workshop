@@ -1,12 +1,18 @@
 import { Button, Form, Input, InputNumber, message } from 'antd'
+import { useEffect } from 'react'
 import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 import CustomerSelect from '../selects/CustomerSelect'
 
-export default function CarsForm() {
+interface Props {
+    carId?: string
+}
+
+export default function CarsForm({ carId }: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCars)
+    let data = useDatabaseStore((state) => state.cars)
 
     function onFinish(values: Car) {
         cars.create(values)
@@ -18,6 +24,14 @@ export default function CarsForm() {
                 message.error(JSON.stringify(err))
             })
     }
+
+    useEffect(() => {
+        if (carId) {
+            form.setFieldsValue(
+                data.filter((car) => car.id == parseInt(carId))[0]
+            )
+        }
+    }, [])
 
     return (
         <Form

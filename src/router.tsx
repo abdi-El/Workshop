@@ -29,6 +29,10 @@ const router = createBrowserRouter([
                 element: <CarsPage />,
             },
             {
+                path: `${pathConstants.CARS.key}/:carId`,
+                element: <CarsPage />,
+            },
+            {
                 path: pathConstants.SETTINGS.key,
                 element: <SettingsPage />,
             },

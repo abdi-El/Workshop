@@ -1,10 +1,12 @@
 import type { InputRef, TableColumnsType } from 'antd'
 import { message, Table } from 'antd'
 import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
+import { pathConstants } from '../Layout'
 import { getColumnSearchProps } from '../utils'
 
 const CarsTable: React.FC = () => {
@@ -13,7 +15,7 @@ const CarsTable: React.FC = () => {
     const data = useDatabaseStore((state) => state.cars)
     const refetch = useDatabaseStore((state) => state.refetchCars)
     const searchInput = useRef<InputRef>(null)
-
+    const navigate = useNavigate()
     const columns: TableColumnsType<Car> = [
         {
             title: 'Targa',
@@ -48,7 +50,7 @@ const CarsTable: React.FC = () => {
         },
         {
             title: 'Azioni',
-            render: (row) => {
+            render: (row: Car) => {
                 return (
                     <ActionButtons
                         onDelete={() => {
@@ -58,7 +60,7 @@ const CarsTable: React.FC = () => {
                             })
                         }}
                         onEdit={() => {
-                            message.success('edit clicked')
+                            navigate(`${pathConstants.CARS.key}/${row.id}`)
                         }}
                     />
                 )
