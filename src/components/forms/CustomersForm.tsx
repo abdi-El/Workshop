@@ -19,8 +19,8 @@ export default function CustomersForm(props: Props) {
                 refetch()
                 message.success('Utente creato correttamente')
             })
-            .catch(() => {
-                message.error('Qualcosa è andato stroto')
+            .catch((err) => {
+                message.error(JSON.stringify(err))
             })
     }
 

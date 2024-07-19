@@ -14,8 +14,8 @@ export default function CarsForm() {
                 refetch()
                 message.success('Auto creata correttamente')
             })
-            .catch(() => {
-                message.error('Qualcosa è andato stroto')
+            .catch((err) => {
+                message.error(JSON.stringify(err))
             })
     }
 

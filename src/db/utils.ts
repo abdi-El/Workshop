@@ -49,7 +49,7 @@ export class Model {
             return  accumulator + stringValue 
         }, "")})`
 
-        return ` INSERT into ${this.tableName} ${keysStrings} VALUES ${values}`
+        return ` INSERT INTO ${this.tableName} ${keysStrings} VALUES ${values}`
     }   
 
 
@@ -60,12 +60,12 @@ export class Model {
 
     public async getAll(){
         let db = await this.getDbInstance()
-        return await db.select(`SELECT * from ${this.tableName}`);
+        return await db.select(`SELECT * FROM ${this.tableName}`);
     }
 
     public async filter(){
         let db = await this.getDbInstance()
-        return await db.select(`SELECT * from ${this.tableName}`);
+        return await db.select(`SELECT * FROM ${this.tableName}`);
     }
 
     public async update( data: SimpleObject, id: number){
