@@ -100,7 +100,7 @@ export default function CarsForm({ carId, onFinish }: Props) {
                     },
                 ]}
             >
-                <Input />
+                <Input.OTP length={7} formatter={(str) => str.toUpperCase()} />
             </Form.Item>
             <Form.Item
                 label="km"
