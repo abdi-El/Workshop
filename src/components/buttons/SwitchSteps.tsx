@@ -1,4 +1,4 @@
-import { Button, message, Steps, theme } from 'antd'
+import { Button, Steps, theme } from 'antd'
 import React, { useState } from 'react'
 
 type Step = {
@@ -47,10 +47,7 @@ export default function SwitchSteps({ steps }: Props) {
                     </Button>
                 )}
                 {current === steps.length - 1 && (
-                    <Button
-                        type="primary"
-                        onClick={() => message.success('Processing complete!')}
-                    >
+                    <Button type="primary" htmlType="submit">
                         Fatto
                     </Button>
                 )}

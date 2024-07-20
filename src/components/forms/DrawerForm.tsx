@@ -19,6 +19,7 @@ export default function DrawerForm(props: Props) {
                 onClick={() => setDrawerOpen(true)}
             />
             <Drawer
+                width={'70vw'}
                 title="Dati:"
                 onClose={() => {
                     setDrawerOpen(false)

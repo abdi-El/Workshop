@@ -1,118 +1,78 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, InputNumber } from 'antd'
 import React from 'react'
 
-const formItemLayout = {
-    labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 },
-    },
-    wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 20 },
-    },
-}
-
-const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 20, offset: 4 },
-    },
-}
-
 const WorkForm: React.FC = () => {
-    const onFinish = (values: any) => {
-        console.log('Received values of form:', values)
-    }
-
     return (
-        <Form
-            name="works_done"
-            {...formItemLayoutWithOutLabel}
-            onFinish={onFinish}
-            style={{ maxWidth: 600 }}
-        >
-            <Form.List
-                name="names"
-                rules={[
-                    {
-                        validator: async (_, names) => {
-                            if (!names || names.length < 2) {
-                                return Promise.reject(
-                                    new Error('At least 2 passengers')
-                                )
-                            }
-                        },
-                    },
-                ]}
-            >
-                {(fields, { add, remove }, { errors }) => (
-                    <>
-                        {fields.map((field, index) => (
+        <Form.List name="works_done">
+            {(fields, { add, remove }, { errors }) => (
+                <>
+                    {fields.map(({ key, name, ...restField }) => (
+                        <Form.Item
+                            required={false}
+                            key={key}
+                            style={{ marginBottom: 0 }}
+                        >
                             <Form.Item
-                                {...(index === 0
-                                    ? formItemLayout
-                                    : formItemLayoutWithOutLabel)}
-                                label={index === 0 ? 'Passengers' : ''}
-                                required={false}
-                                key={field.key}
+                                {...restField}
+                                name={[name, 'name']}
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                ]}
+                                noStyle
                             >
-                                <Form.Item
-                                    {...field}
-                                    validateTrigger={['onChange', 'onBlur']}
-                                    rules={[
-                                        {
-                                            required: true,
-                                            whitespace: true,
-                                            message:
-                                                "Please input passenger's name or delete this field.",
-                                        },
-                                    ]}
-                                    noStyle
-                                >
-                                    <Input
-                                        placeholder="passenger name"
-                                        style={{ width: '60%' }}
-                                    />
-                                </Form.Item>
-                                {fields.length > 1 ? (
-                                    <MinusCircleOutlined
-                                        className="dynamic-delete-button"
-                                        onClick={() => remove(field.name)}
-                                    />
-                                ) : null}
+                                <Input.TextArea
+                                    placeholder="Titolo lavoro eseguito"
+                                    style={{ width: '40%' }}
+                                />
                             </Form.Item>
-                        ))}
-                        <Form.Item>
-                            <Button
-                                type="dashed"
-                                onClick={() => add()}
-                                style={{ width: '60%' }}
-                                icon={<PlusOutlined />}
+                            <Form.Item
+                                {...restField}
+                                name={[name, 'price']}
+                                rules={[
+                                    {
+                                        required: true,
+                                    },
+                                ]}
+                                noStyle
                             >
-                                Add field
-                            </Button>
-                            <Button
-                                type="dashed"
-                                onClick={() => {
-                                    add('The head item', 0)
-                                }}
-                                style={{ width: '60%', marginTop: '20px' }}
-                                icon={<PlusOutlined />}
-                            >
-                                Add field at head
-                            </Button>
-                            <Form.ErrorList errors={errors} />
+                                <InputNumber
+                                    placeholder="Prezzo lavoro eseguito"
+                                    style={{ width: '40%' }}
+                                />
+                            </Form.Item>
+                            <MinusCircleOutlined
+                                style={{ marginLeft: '5px' }}
+                                onClick={() => remove(name)}
+                            />
                         </Form.Item>
-                    </>
-                )}
-            </Form.List>
-            <Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+                    ))}
+                    <Form.Item>
+                        <Button
+                            type="dashed"
+                            onClick={() => add()}
+                            style={{ width: '60%' }}
+                            icon={<PlusOutlined />}
+                        >
+                            Aggiungi un lavoro
+                        </Button>
+                        <Button
+                            type="dashed"
+                            onClick={() => {
+                                add('', 0)
+                            }}
+                            style={{ width: '60%', marginTop: '20px' }}
+                            icon={<PlusOutlined />}
+                        >
+                            Aggiungi lavoro all'inizio
+                        </Button>
+                        <Form.ErrorList errors={errors} />
+                    </Form.Item>
+                </>
+            )}
+        </Form.List>
     )
 }
 

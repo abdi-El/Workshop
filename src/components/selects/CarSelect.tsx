@@ -26,7 +26,7 @@ export default function CarSelect() {
                 }
                 options={cars.map((car) => ({
                     value: car.id,
-                    label: car.number_plate,
+                    label: `${car.maker}-${car.model}-${car.number_plate}`,
                 }))}
             />
         </FormItem>
