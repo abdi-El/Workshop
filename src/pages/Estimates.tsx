@@ -1,11 +1,11 @@
 import DrawerForm from '../components/forms/DrawerForm'
-import WorkForm from '../components/forms/estimate/WorksForm'
+import EstimateFrom from '../components/forms/estimate/EstimateFrom'
 
 export default function EstimatesPage() {
     return (
         <>
             <DrawerForm>
-                <WorkForm />
+                <EstimateFrom />
             </DrawerForm>
         </>
     )
