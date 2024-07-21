@@ -36,6 +36,9 @@ const PricesForm: React.FC = () => {
             >
                 <InputNumber prefix="%" placeholder="Iva" step="0.01" />
             </Form.Item>
+            <Form.Item label="Sconto" name="discount" initialValue={0}>
+                <InputNumber prefix="€" placeholder="Sconto" step="0.01" />
+            </Form.Item>
         </>
     )
 }
