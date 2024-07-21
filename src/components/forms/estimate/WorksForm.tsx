@@ -40,6 +40,8 @@ const WorkForm: React.FC = () => {
                             >
                                 <InputNumber
                                     placeholder="Prezzo lavoro eseguito"
+                                    step="0.01"
+                                    prefix="€"
                                     style={{ width: '40%' }}
                                 />
                             </Form.Item>

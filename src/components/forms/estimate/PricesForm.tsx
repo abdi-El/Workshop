@@ -18,7 +18,11 @@ const PricesForm: React.FC = () => {
                     },
                 ]}
             >
-                <InputNumber prefix="€" placeholder="Prezzo mano d'opera" />
+                <InputNumber
+                    prefix="€"
+                    placeholder="Prezzo mano d'opera"
+                    step="0.01"
+                />
             </Form.Item>
             <Form.Item
                 label="Iva"
@@ -30,7 +34,7 @@ const PricesForm: React.FC = () => {
                     },
                 ]}
             >
-                <InputNumber prefix="%" placeholder="Iva" />
+                <InputNumber prefix="%" placeholder="Iva" step="0.01" />
             </Form.Item>
         </>
     )

@@ -1,3 +1,4 @@
+import { DashboardOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber, message } from 'antd'
 import { useEffect } from 'react'
 import { cars } from '../../db/models'
@@ -111,7 +112,7 @@ export default function CarsForm({ carId, onFinish }: Props) {
                     },
                 ]}
             >
-                <InputNumber />
+                <InputNumber prefix={<DashboardOutlined />} />
             </Form.Item>
 
             <Form.Item>
