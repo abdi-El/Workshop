@@ -58,8 +58,10 @@ export default function SwitchSteps({ steps, form }: Props) {
                         type="primary"
                         htmlType="submit"
                         onClick={() => {
-                            setCurrent(0)
-                            form?.submit()
+                            if (form) {
+                                setCurrent(0)
+                                form?.submit()
+                            }
                         }}
                     >
                         Fatto
