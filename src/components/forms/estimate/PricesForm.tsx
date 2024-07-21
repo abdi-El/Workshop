@@ -1,5 +1,5 @@
 import { Col, Form, FormInstance, InputNumber, Row, Switch } from 'antd'
-import { useWatch } from 'antd/es/form/Form'
+import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useGlobalStore from '../../../stores/GlobalStore'
 
@@ -9,7 +9,8 @@ interface Props {
 
 const PricesForm = (props: Props) => {
     const settings = useGlobalStore(useShallow((state) => state.settings))
-    const hasIva = useWatch('has_iva', props.form)
+    const [hasIva, setHasIva] = useState(false)
+    const [hasDiscount, setHasDiscount] = useState(false)
 
     return (
         <>
@@ -30,20 +31,14 @@ const PricesForm = (props: Props) => {
                 />
             </Form.Item>
 
-            <Row>
+            <Row align="middle">
                 <Col span={12}>
-                    <Form.Item
-                        label="Vuoi applicare l' Iva?"
-                        name="has_iva"
-                        initialValue={false}
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <Switch checkedChildren="Sì" unCheckedChildren="N0" />
-                    </Form.Item>
+                    Voui applicare l'iva?{' '}
+                    <Switch
+                        checkedChildren="Sì"
+                        unCheckedChildren="No"
+                        onChange={setHasIva}
+                    />
                 </Col>
                 {hasIva && (
                     <Col span={12}>
@@ -66,10 +61,31 @@ const PricesForm = (props: Props) => {
                     </Col>
                 )}
             </Row>
-
-            <Form.Item label="Sconto" name="discount" initialValue={0}>
-                <InputNumber prefix="€" placeholder="Sconto" step="0.01" />
-            </Form.Item>
+            <Row align="middle">
+                <Col span={12}>
+                    Voui applicare uno sconto?{' '}
+                    <Switch
+                        checkedChildren="Sì"
+                        unCheckedChildren="No"
+                        onChange={setHasDiscount}
+                    />
+                </Col>
+                {hasDiscount && (
+                    <Col span={12}>
+                        <Form.Item
+                            label="Sconto"
+                            name="discount"
+                            initialValue={0}
+                        >
+                            <InputNumber
+                                prefix="€"
+                                placeholder="Sconto"
+                                step="0.01"
+                            />
+                        </Form.Item>
+                    </Col>
+                )}
+            </Row>
         </>
     )
 }

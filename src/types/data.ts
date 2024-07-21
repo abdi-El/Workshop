@@ -3,12 +3,13 @@ interface DataBaseInterface {
 }
 
 export interface Settings {
-    workshop_name: string,
-    workshop_address: string, 
-    p_iva: string,
+    workshop_name: string
+    workshop_address: string
+    workshop_phone_number: string
+    workshop_p_iva: string
     isDarkTheme: boolean
     workforce_price: number
-    iva: number,
+    iva: number
 }
 
 export interface Car extends DataBaseInterface {
@@ -19,7 +20,7 @@ export interface Car extends DataBaseInterface {
     owner: number
 }
 
-export interface Customer extends DataBaseInterface{
+export interface Customer extends DataBaseInterface {
     name: string
     email: string
     phone_number: string

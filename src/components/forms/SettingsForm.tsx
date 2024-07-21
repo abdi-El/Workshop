@@ -44,8 +44,19 @@ export default function SettingsForm() {
                 <Input placeholder="Esempio: Via Roma 1B" />
             </Form.Item>
             <Form.Item
+                label="Numero di telefono officina"
+                name="workshop_phone_number"
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
+                <Input placeholder="Esempio: 055055" />
+            </Form.Item>
+            <Form.Item
                 label="Partita Iva"
-                name="p_iva"
+                name="workshop_p_iva"
                 rules={[
                     {
                         required: true,
