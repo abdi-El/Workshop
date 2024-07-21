@@ -2,7 +2,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber } from 'antd'
 import React from 'react'
 
-const WorkForm: React.FC = () => {
+const WorksForm: React.FC = () => {
     return (
         <Form.List name="works_done">
             {(fields, { add, remove }, { errors }) => (
@@ -78,4 +78,4 @@ const WorkForm: React.FC = () => {
     )
 }
 
-export default WorkForm
+export default WorksForm

@@ -1,10 +1,15 @@
-import { Form, InputNumber } from 'antd'
-import React from 'react'
+import { Col, Form, FormInstance, InputNumber, Row, Switch } from 'antd'
+import { useWatch } from 'antd/es/form/Form'
 import { useShallow } from 'zustand/react/shallow'
 import useGlobalStore from '../../../stores/GlobalStore'
 
-const PricesForm: React.FC = () => {
+interface Props {
+    form: FormInstance<any>
+}
+
+const PricesForm = (props: Props) => {
     const settings = useGlobalStore(useShallow((state) => state.settings))
+    const hasIva = useWatch('has_iva', props.form)
 
     return (
         <>
@@ -24,18 +29,44 @@ const PricesForm: React.FC = () => {
                     step="0.01"
                 />
             </Form.Item>
-            <Form.Item
-                label="Iva"
-                name="iva"
-                initialValue={settings.iva}
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <InputNumber prefix="%" placeholder="Iva" step="0.01" />
-            </Form.Item>
+
+            <Row>
+                <Col span={12}>
+                    <Form.Item
+                        label="Vuoi applicare l' Iva?"
+                        name="has_iva"
+                        initialValue={false}
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                    >
+                        <Switch checkedChildren="Sì" unCheckedChildren="N0" />
+                    </Form.Item>
+                </Col>
+                {hasIva && (
+                    <Col span={12}>
+                        <Form.Item
+                            label="Iva"
+                            name="iva"
+                            initialValue={settings.iva}
+                            rules={[
+                                {
+                                    required: true,
+                                },
+                            ]}
+                        >
+                            <InputNumber
+                                prefix="%"
+                                placeholder="Iva"
+                                step="0.01"
+                            />
+                        </Form.Item>
+                    </Col>
+                )}
+            </Row>
+
             <Form.Item label="Sconto" name="discount" initialValue={0}>
                 <InputNumber prefix="€" placeholder="Sconto" step="0.01" />
             </Form.Item>

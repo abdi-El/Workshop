@@ -4,7 +4,7 @@ import SwitchSteps from '../../buttons/SwitchSteps'
 import CarSelect from '../../selects/CarSelect'
 import CustomerSelect from '../../selects/CustomerSelect'
 import PricesForm from './PricesForm'
-import WorkForm from './WorksForm'
+import WorksForm from './WorksForm'
 
 interface Props {
     onFinish?(): void
@@ -32,11 +32,11 @@ export default function EstimateFrom(props: Props) {
                         title: 'Auto:',
                     },
                     {
-                        content: <WorkForm />,
+                        content: <WorksForm />,
                         title: 'Lavori eseguiti:',
                     },
                     {
-                        content: <PricesForm />,
+                        content: <PricesForm form={form} />,
                         title: 'Prezzi:',
                     },
                 ]}
