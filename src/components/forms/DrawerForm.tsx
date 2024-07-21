@@ -1,11 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { Drawer, FloatButton } from 'antd'
+import { Drawer, DrawerProps, FloatButton } from 'antd'
 import { useShallow } from 'zustand/react/shallow'
 import useGlobalStore from '../../stores/GlobalStore'
 
 type Props = {
     children: JSX.Element | JSX.Element[]
     onClose?(): void
+    drawerProps?: DrawerProps
 }
 
 export default function DrawerForm(props: Props) {
@@ -19,7 +20,7 @@ export default function DrawerForm(props: Props) {
                 onClick={() => setDrawerOpen(true)}
             />
             <Drawer
-                width={'70vw'}
+                {...props.drawerProps}
                 title="Dati:"
                 onClose={() => {
                     setDrawerOpen(false)

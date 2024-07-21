@@ -4,7 +4,7 @@ import EstimateFrom from '../components/forms/estimate/EstimateFrom'
 export default function EstimatesPage() {
     return (
         <>
-            <DrawerForm>
+            <DrawerForm drawerProps={{ width: '70vw' }}>
                 <EstimateFrom />
             </DrawerForm>
         </>
