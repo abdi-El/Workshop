@@ -1,13 +1,9 @@
-import { Col, Form, FormInstance, InputNumber, Row, Switch } from 'antd'
+import { Col, Form, InputNumber, Row, Switch } from 'antd'
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useGlobalStore from '../../../stores/GlobalStore'
 
-interface Props {
-    form: FormInstance<any>
-}
-
-const PricesForm = (props: Props) => {
+const PricesForm = () => {
     const settings = useGlobalStore(useShallow((state) => state.settings))
     const [hasIva, setHasIva] = useState(false)
     const [hasDiscount, setHasDiscount] = useState(false)

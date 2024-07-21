@@ -36,7 +36,7 @@ export default function EstimateFrom(props: Props) {
                         title: 'Lavori eseguiti:',
                     },
                     {
-                        content: <PricesForm form={form} />,
+                        content: <PricesForm />,
                         title: 'Prezzi:',
                     },
                 ]}
