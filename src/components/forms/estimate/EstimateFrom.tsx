@@ -1,6 +1,5 @@
 import { Form, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import { SimpleObject } from '../../../types/common'
 import SwitchSteps from '../../buttons/SwitchSteps'
 import CarSelect from '../../selects/CarSelect'
 import CustomerSelect from '../../selects/CustomerSelect'
@@ -13,14 +12,16 @@ interface Props {
 
 export default function EstimateFrom(props: Props) {
     const [form] = useForm()
-    function onFinish(values: SimpleObject) {
-        message.success(JSON.stringify(values))
+    function onFinish() {
+        const formData = form.getFieldsValue(true)
+        message.success(JSON.stringify(formData))
         form.resetFields()
         props.onFinish!()
     }
     return (
         <Form form={form} onFinish={onFinish}>
             <SwitchSteps
+                form={form}
                 steps={[
                     {
                         content: <CustomerSelect />,
@@ -28,7 +29,7 @@ export default function EstimateFrom(props: Props) {
                     },
                     {
                         content: <CarSelect />,
-                        title: 'Auto    :',
+                        title: 'Auto:',
                     },
                     {
                         content: <WorkForm />,

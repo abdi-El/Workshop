@@ -9,7 +9,7 @@ export default function CarSelect() {
     return (
         <FormItem
             label="Auto"
-            name="car"
+            name="car_id"
             rules={[
                 {
                     required: true,

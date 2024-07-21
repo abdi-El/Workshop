@@ -1,4 +1,4 @@
-import { Button, Steps, theme } from 'antd'
+import { Button, FormInstance, Steps, theme } from 'antd'
 import React, { useState } from 'react'
 
 type Step = {
@@ -7,14 +7,21 @@ type Step = {
 }
 interface Props {
     steps: Step[]
+    form?: FormInstance<any>
 }
 
-export default function SwitchSteps({ steps }: Props) {
+export default function SwitchSteps({ steps, form }: Props) {
     const { token } = theme.useToken()
     const [current, setCurrent] = useState(0)
 
     const next = () => {
-        setCurrent(current + 1)
+        if (form) {
+            form.validateFields().then(() => {
+                setCurrent(current + 1)
+            })
+        } else {
+            setCurrent(current + 1)
+        }
     }
 
     const prev = () => {
@@ -47,7 +54,14 @@ export default function SwitchSteps({ steps }: Props) {
                     </Button>
                 )}
                 {current === steps.length - 1 && (
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        onClick={() => {
+                            setCurrent(0)
+                            form?.submit()
+                        }}
+                    >
                         Fatto
                     </Button>
                 )}
