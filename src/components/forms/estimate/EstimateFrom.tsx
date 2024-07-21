@@ -4,12 +4,19 @@ import { SimpleObject } from '../../../types/common'
 import SwitchSteps from '../../buttons/SwitchSteps'
 import CarSelect from '../../selects/CarSelect'
 import CustomerSelect from '../../selects/CustomerSelect'
+import PricesForm from './PricesForm'
 import WorkForm from './WorksForm'
 
-export default function EstimateFrom() {
+interface Props {
+    onFinish?(): void
+}
+
+export default function EstimateFrom(props: Props) {
     const [form] = useForm()
     function onFinish(values: SimpleObject) {
         message.success(JSON.stringify(values))
+        form.resetFields()
+        props.onFinish!()
     }
     return (
         <Form form={form} onFinish={onFinish}>
@@ -26,6 +33,10 @@ export default function EstimateFrom() {
                     {
                         content: <WorkForm />,
                         title: 'Lavori eseguiti:',
+                    },
+                    {
+                        content: <PricesForm />,
+                        title: 'Prezzi:',
                     },
                 ]}
             />
