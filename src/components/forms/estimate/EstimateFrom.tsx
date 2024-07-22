@@ -1,4 +1,4 @@
-import { Form, message } from 'antd'
+import { Form } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import { useEffect } from 'react'
 import { estimates } from '../../../db/models'
@@ -46,20 +46,11 @@ export default function EstimateFrom(props: Props) {
         } else {
             result = estimates.create(formData)
         }
-        result
-            .then(() => {
-                form.resetFields()
-                props.onFinish!()
-                refetch()
-                message.success(
-                    `Preventivo ${
-                        props.estimateId ? 'aggiornato' : 'creato'
-                    } correttamente`
-                )
-            })
-            .catch((err) => {
-                message.error(err)
-            })
+        result.then(() => {
+            form.resetFields()
+            props.onFinish!()
+            refetch()
+        })
     }
     let data = useDatabaseStore((state) => state.estimates)
 

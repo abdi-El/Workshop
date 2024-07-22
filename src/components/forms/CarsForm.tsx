@@ -1,5 +1,5 @@
 import { DashboardOutlined } from '@ant-design/icons'
-import { Button, Form, Input, InputNumber, message } from 'antd'
+import { Button, Form, Input, InputNumber } from 'antd'
 import { useEffect } from 'react'
 import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
@@ -23,24 +23,10 @@ export default function CarsForm({ carId, onFinish }: Props) {
     }
 
     function createCar(values: Car) {
-        cars.create(values)
-            .then(() => {
-                onSuccess()
-                message.success('Auto creata correttamente')
-            })
-            .catch((err) => {
-                message.error(JSON.stringify(err))
-            })
+        cars.create(values).then(() => onSuccess())
     }
     function updateCar(values: Car, carId: number) {
-        cars.update(values, carId)
-            .then(() => {
-                onSuccess()
-                message.success('Auto aggiornata correttamente')
-            })
-            .catch((err) => {
-                message.error(JSON.stringify(err))
-            })
+        cars.update(values, carId).then(() => onSuccess())
     }
 
     function onSubmit(values: Car) {

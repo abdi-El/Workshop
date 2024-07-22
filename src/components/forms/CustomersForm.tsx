@@ -23,24 +23,13 @@ export default function CustomersForm(props: Props) {
     function createCustomer(values: Customer) {
         customers
             .create(values)
-            .then(() => {
-                onSuccess()
-                message.success('Cliente creto correttamente')
-            })
+            .then(() => onSuccess())
             .catch((err) => {
                 message.error(JSON.stringify(err))
             })
     }
     function updateCostomer(values: Customer, costomerId: number) {
-        customers
-            .update(values, costomerId)
-            .then(() => {
-                onSuccess()
-                message.success('Cliente aggiornato correttamente')
-            })
-            .catch((err) => {
-                message.error(JSON.stringify(err))
-            })
+        customers.update(values, costomerId).then(() => onSuccess())
     }
 
     function onFinish(values: Customer) {
