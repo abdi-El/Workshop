@@ -14,7 +14,10 @@ export default function EstimatesPage() {
         <>
             <EstinateTable />
             <DrawerForm
-                drawerProps={{ width: '90vw' }}
+                drawerProps={{
+                    width: '90vw',
+                    title: `${estimateId ? 'Aggiorna' : 'Crea'} preventivo:`,
+                }}
                 onClose={() => {
                     navigate(pathConstants.ESTIMATES.key)
                 }}

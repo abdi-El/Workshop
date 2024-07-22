@@ -16,6 +16,7 @@ export default function CarsPage() {
                 onClose={() => {
                     navigate(pathConstants.CARS.key)
                 }}
+                drawerProps={{ title: `${carId ? 'Aggiorna' : 'Crea'} auto:` }}
             >
                 <CarsForm
                     carId={parseInt(carId!)}

@@ -20,13 +20,13 @@ export default function DrawerForm(props: Props) {
                 onClick={() => setDrawerOpen(true)}
             />
             <Drawer
-                {...props.drawerProps}
                 title="Dati:"
                 onClose={() => {
                     setDrawerOpen(false)
                     props.onClose!()
                 }}
                 open={drawerOpen}
+                {...props.drawerProps}
             >
                 {props.children}
             </Drawer>

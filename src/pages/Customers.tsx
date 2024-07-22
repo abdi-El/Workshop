@@ -17,6 +17,9 @@ export default function CustomersPage() {
                 onClose={() => {
                     navigate(pathConstants.CUSTOMERS.key)
                 }}
+                drawerProps={{
+                    title: `${customerId ? 'Aggiorna' : 'Crea'} cliente:`,
+                }}
             >
                 <CustomersForm
                     customerId={parseInt(customerId!)}

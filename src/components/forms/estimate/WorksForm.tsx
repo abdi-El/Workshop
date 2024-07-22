@@ -1,4 +1,8 @@
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import {
+    MinusCircleOutlined,
+    PlusOutlined,
+    RiseOutlined,
+} from '@ant-design/icons'
 import { Button, Form, Input, InputNumber } from 'antd'
 import React from 'react'
 
@@ -62,7 +66,7 @@ const WorksForm: React.FC = () => {
                                         placeholder="Quantità"
                                         step="0.01"
                                         min={0}
-                                        prefix="€"
+                                        prefix={<RiseOutlined />}
                                         style={{ width: '15%' }}
                                     />
                                 </Form.Item>
@@ -79,17 +83,7 @@ const WorksForm: React.FC = () => {
                                 style={{ width: '60%' }}
                                 icon={<PlusOutlined />}
                             >
-                                Aggiungi un lavoro
-                            </Button>
-                            <Button
-                                type="dashed"
-                                onClick={() => {
-                                    add('', 0)
-                                }}
-                                style={{ width: '60%', marginTop: '20px' }}
-                                icon={<PlusOutlined />}
-                            >
-                                Aggiungi lavoro all'inizio
+                                Aggiungi una voce
                             </Button>
                             <Form.ErrorList errors={errors} />
                         </Form.Item>
