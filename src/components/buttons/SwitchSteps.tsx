@@ -14,13 +14,15 @@ export default function SwitchSteps({ steps, form }: Props) {
     const { token } = theme.useToken()
     const [current, setCurrent] = useState(0)
 
-    const next = () => {
+    const next = (isLast = false) => {
+        let value = !isLast ? current + 1 : 0
         if (form) {
             form.validateFields().then(() => {
-                setCurrent(current + 1)
+                if (isLast) form.submit()
+                setCurrent(value)
             })
         } else {
-            setCurrent(current + 1)
+            setCurrent(value)
         }
     }
 
@@ -56,12 +58,8 @@ export default function SwitchSteps({ steps, form }: Props) {
                 {current === steps.length - 1 && (
                     <Button
                         type="primary"
-                        htmlType="submit"
                         onClick={() => {
-                            if (form) {
-                                setCurrent(0)
-                                form?.submit()
-                            }
+                            next(true)
                         }}
                     >
                         Fatto

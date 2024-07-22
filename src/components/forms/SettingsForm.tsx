@@ -76,7 +76,12 @@ export default function SettingsForm() {
                             },
                         ]}
                     >
-                        <InputNumber placeholder="20" prefix="€" step="0.01" />
+                        <InputNumber
+                            placeholder="20"
+                            prefix="€"
+                            step="0.01"
+                            min={0}
+                        />
                     </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -90,7 +95,7 @@ export default function SettingsForm() {
                             },
                         ]}
                     >
-                        <InputNumber prefix="%" step="0.01" />
+                        <InputNumber prefix="%" step="0.01" min={0} />
                     </Form.Item>
                 </Col>
             </Row>
