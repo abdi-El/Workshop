@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import BaseLayout, { pathConstants } from './components/Layout'
+import { PageNotFound } from './pages/404'
 
 const HomePage = React.lazy(() => import('./pages/Home'))
 const EstimatesPage = React.lazy(() => import('./pages/Estimates'))
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: pathConstants.SETTINGS.key,
                 element: <SettingsPage />,
+            },
+            {
+                path: '*',
+                element: <PageNotFound />,
             },
         ],
     },
