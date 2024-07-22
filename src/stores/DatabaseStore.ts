@@ -23,7 +23,7 @@ const useDatabaseStore = create<StoreState>((set) => ({
         cars.getAll().then((res) => set({ cars: res as Car[] }))
     },
     refetchEstimates: () => {
-        estimates.getAll().then((res) => set({ cars: res as Estimate[] }))
+        estimates.getAll().then((res) => set({ estimates: res as Estimate[] }))
     },
 }))
 
