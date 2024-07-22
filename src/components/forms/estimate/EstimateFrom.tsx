@@ -53,13 +53,16 @@ export default function EstimateFrom(props: Props) {
         })
     }
     let data = useDatabaseStore((state) => state.estimates)
-
     useEffect(() => {
         if (props.estimateId) {
             let currentEstimate = data.filter(
                 (estimate) => estimate.id == props.estimateId
             )[0]
-            currentEstimate.works_done = JSON.parse(currentEstimate.works_done)
+            if (typeof currentEstimate.works_done == 'string') {
+                currentEstimate.works_done = JSON.parse(
+                    currentEstimate.works_done
+                )
+            }
             form.setFieldsValue(currentEstimate)
         } else {
             form.resetFields()
