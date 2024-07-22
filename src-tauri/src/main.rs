@@ -30,6 +30,29 @@ fn main() {
             );",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 3,
+            description: "create_estimates_table",
+            sql: "CREATE TABLE estimates (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                works_done TEXT,
+                workforce_price REAL NOT NULL,
+                hours_worked REAL NOT NULL,
+                iva REAL,
+                discount REAL,
+                notes TEXT,
+                workshop_name TEXT,
+                workshop_address TEXT,
+                workshop_phone_number TEXT,
+                workshop_p_iva TEXT,
+                km INTEGER NOT NULL,
+                car_id INTEGER NOT NULL,
+                FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE PROTECT
+                owner_id INTEGER NOT NULL,
+                FOREIGN KEY (owner_id) REFERENCES customers(id) ON DELETE PROTECT
+            );",
+            kind: MigrationKind::Up,
+        },
     ];
 
     tauri::Builder::default()
