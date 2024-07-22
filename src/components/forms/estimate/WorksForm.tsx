@@ -77,7 +77,22 @@ const WorksForm: React.FC = () => {
                     </>
                 )}
             </Form.List>
-            <Form.Item name="notes">
+            <Form.Item
+                name="hours_worked"
+                label="Ore Lavorate"
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
+                <InputNumber
+                    placeholder="ore lavorate"
+                    precision={0.01}
+                    min={0}
+                />
+            </Form.Item>
+            <Form.Item name="notes" label="Note">
                 <Input.TextArea
                     placeholder="Note"
                     style={{ width: '80%' }}

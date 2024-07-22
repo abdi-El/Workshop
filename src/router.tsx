@@ -21,6 +21,10 @@ const router = createBrowserRouter([
                 element: <EstimatesPage />,
             },
             {
+                path: `${pathConstants.ESTIMATES.key}/:estimateId`,
+                element: <EstimatesPage />,
+            },
+            {
                 path: pathConstants.CUSTOMERS.key,
                 element: <CustomersPage />,
             },

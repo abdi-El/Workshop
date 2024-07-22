@@ -20,7 +20,7 @@ export default function CustomersForm(props: Props) {
         form.resetFields()
     }
 
-    function createCustomer(values: Car) {
+    function createCustomer(values: Customer) {
         customers
             .create(values)
             .then(() => {
