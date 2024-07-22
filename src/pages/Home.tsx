@@ -1,13 +1,10 @@
-import { Button, message } from 'antd'
+import { PDFViewer } from '@react-pdf/renderer'
+import EstimatePdf from '../components/pdf/Estimate'
 
 export default function HomePage() {
-    function greet() {
-        message.success('THIS IS A TEST')
-    }
-
     return (
-        <h1>
-            <Button onClick={greet}>CLICK ME</Button>
-        </h1>
+        <PDFViewer width="100%" height="1000" className="app">
+            <EstimatePdf />
+        </PDFViewer>
     )
 }
