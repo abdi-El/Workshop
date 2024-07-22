@@ -33,6 +33,18 @@ const EstinateTable: React.FC = () => {
             ),
         },
         {
+            title: 'Note',
+            dataIndex: 'notes',
+            key: 'notes',
+            width: '30%',
+            ...getColumnSearchProps(
+                'notes',
+                setSearchText,
+                setSearchedColumn,
+                searchInput
+            ),
+        },
+        {
             title: 'Azioni',
             render: (row: Estimate) => {
                 return (
