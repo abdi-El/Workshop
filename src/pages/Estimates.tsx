@@ -1,13 +1,25 @@
+import { useNavigate, useParams } from 'react-router-dom'
 import DrawerForm from '../components/forms/DrawerForm'
 import EstimateFrom from '../components/forms/estimate/EstimateFrom'
+import { pathConstants } from '../components/Layout'
 import useGlobalStore from '../stores/GlobalStore'
 
 export default function EstimatesPage() {
+    const { estimateId } = useParams()
     const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
+    const navigate = useNavigate()
 
     return (
-        <DrawerForm drawerProps={{ width: '70vw' }}>
-            <EstimateFrom onFinish={() => setDrawerOpen(false)} />
+        <DrawerForm
+            drawerProps={{ width: '70vw' }}
+            onClose={() => {
+                navigate(pathConstants.ESTIMATES.key)
+            }}
+        >
+            <EstimateFrom
+                onFinish={() => setDrawerOpen(false)}
+                estimateId={parseInt(estimateId!)}
+            />
         </DrawerForm>
     )
 }

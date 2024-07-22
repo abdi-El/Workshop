@@ -1,32 +1,41 @@
 import { create } from 'zustand'
-import { cars, customers } from '../db/models'
-import { Car, Customer } from '../types/data'
+import { cars, customers, estimates } from '../db/models'
+import { Car, Customer, Estimate } from '../types/data'
 
 interface StoreState {
-  customers: Customer[]
-  cars: Car[]
-  refetchCustomers: () => void
-  refetchCars: () => void
+    customers: Customer[]
+    cars: Car[]
+    estimates: Estimate[]
+    refetchCustomers: () => void
+    refetchCars: () => void
+    refetchEstimates: () => void
 }
 
 const useDatabaseStore = create<StoreState>((set) => ({
-  customers: [],
-  cars: [],
-  refetchCustomers: () => {
-    customers.getAll().then((res) => set({ customers: res as Customer[] }))
-    useDatabaseStore.getState().refetchCars();
-  },
-  refetchCars: () => {
-    cars.getAll().then((res) => set({ cars: res as Car[] }))
-  },
+    customers: [],
+    cars: [],
+    estimates: [],
+    refetchCustomers: () => {
+        customers.getAll().then((res) => set({ customers: res as Customer[] }))
+        useDatabaseStore.getState().refetchCars()
+    },
+    refetchCars: () => {
+        cars.getAll().then((res) => set({ cars: res as Car[] }))
+    },
+    refetchEstimates: () => {
+        estimates.getAll().then((res) => set({ cars: res as Estimate[] }))
+    },
 }))
 
 // Initial fetching of data
 customers.getAll().then((res) => {
-  useDatabaseStore.setState({ customers: res as Customer[] })
+    useDatabaseStore.setState({ customers: res as Customer[] })
 })
 cars.getAll().then((res) => {
-  useDatabaseStore.setState({ cars: res as Car[] })
+    useDatabaseStore.setState({ cars: res as Car[] })
+})
+estimates.getAll().then((res) => {
+    useDatabaseStore.setState({ estimates: res as Estimate[] })
 })
 
 export default useDatabaseStore

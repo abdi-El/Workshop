@@ -15,7 +15,7 @@ export interface Settings extends Workshop {
     isDarkTheme: boolean
 }
 
-export interface Estimate extends Workshop {
+export interface Estimate extends Workshop, DataBaseInterface {
     car_id: number
     owner_id: number
     works_done: { name: string; price: number }[]
