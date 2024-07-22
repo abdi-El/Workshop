@@ -14,7 +14,7 @@ export default function EstimatesPage() {
         <>
             <EstinateTable />
             <DrawerForm
-                drawerProps={{ width: '70vw' }}
+                drawerProps={{ width: '90vw' }}
                 onClose={() => {
                     navigate(pathConstants.ESTIMATES.key)
                 }}

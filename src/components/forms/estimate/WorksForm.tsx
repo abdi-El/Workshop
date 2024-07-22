@@ -12,7 +12,7 @@ const WorksForm: React.FC = () => {
                             <Form.Item
                                 required={false}
                                 key={key}
-                                style={{ marginBottom: 0 }}
+                                style={{ marginBottom: 5 }}
                             >
                                 <Form.Item
                                     {...restField}
@@ -25,8 +25,9 @@ const WorksForm: React.FC = () => {
                                     noStyle
                                 >
                                     <Input.TextArea
-                                        placeholder="Titolo lavoro eseguito"
-                                        style={{ width: '40%' }}
+                                        placeholder="Voce"
+                                        rows={1}
+                                        style={{ width: '50%' }}
                                     />
                                 </Form.Item>
                                 <Form.Item
@@ -40,11 +41,29 @@ const WorksForm: React.FC = () => {
                                     noStyle
                                 >
                                     <InputNumber
-                                        placeholder="Prezzo lavoro eseguito"
+                                        placeholder="Prezzo"
                                         step="0.01"
                                         min={0}
                                         prefix="€"
-                                        style={{ width: '40%' }}
+                                        style={{ width: '15%' }}
+                                    />
+                                </Form.Item>
+                                <Form.Item
+                                    {...restField}
+                                    name={[name, 'quantity']}
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                    noStyle
+                                >
+                                    <InputNumber
+                                        placeholder="Quantità"
+                                        step="0.01"
+                                        min={0}
+                                        prefix="€"
+                                        style={{ width: '15%' }}
                                     />
                                 </Form.Item>
                                 <MinusCircleOutlined
