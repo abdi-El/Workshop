@@ -1,8 +1,10 @@
 import { DashboardOutlined } from '@ant-design/icons'
 import { Button, Form, Input, InputNumber } from 'antd'
 import { useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { cars } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
+import useGlobalStore from '../../stores/GlobalStore'
 import { Car } from '../../types/data'
 import CustomerSelect from '../selects/CustomerSelect'
 
@@ -15,6 +17,7 @@ export default function CarsForm({ carId, onFinish }: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCars)
     let data = useDatabaseStore((state) => state.cars)
+    const drawerOpen = useGlobalStore(useShallow((state) => state.drawerState))
 
     function onSuccess() {
         refetch()
@@ -45,7 +48,7 @@ export default function CarsForm({ carId, onFinish }: Props) {
         } else {
             form.resetFields()
         }
-    }, [carId])
+    }, [carId, drawerOpen])
 
     return (
         <Form

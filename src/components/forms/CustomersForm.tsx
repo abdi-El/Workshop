@@ -1,7 +1,9 @@
 import { Button, Form, Input, message } from 'antd'
 import { useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { customers } from '../../db/models'
 import useDatabaseStore from '../../stores/DatabaseStore'
+import useGlobalStore from '../../stores/GlobalStore'
 import { Customer } from '../../types/data'
 
 interface Props {
@@ -13,6 +15,7 @@ export default function CustomersForm(props: Props) {
     const [form] = Form.useForm()
     const refetch = useDatabaseStore((state) => state.refetchCustomers)
     let data = useDatabaseStore((state) => state.customers)
+    const drawerOpen = useGlobalStore(useShallow((state) => state.drawerState))
 
     function onSuccess() {
         refetch()
@@ -48,7 +51,7 @@ export default function CustomersForm(props: Props) {
         } else {
             form.resetFields()
         }
-    }, [props.customerId])
+    }, [props.customerId, drawerOpen])
 
     return (
         <Form

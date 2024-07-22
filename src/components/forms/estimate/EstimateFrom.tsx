@@ -1,8 +1,10 @@
 import { Form } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import { useEffect } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { estimates } from '../../../db/models'
 import useDatabaseStore from '../../../stores/DatabaseStore'
+import useGlobalStore from '../../../stores/GlobalStore'
 import { Estimate, Settings } from '../../../types/data'
 import SwitchSteps from '../../buttons/SwitchSteps'
 import CarSelect from '../../selects/CarSelect'
@@ -18,6 +20,7 @@ interface Props {
 export default function EstimateFrom(props: Props) {
     const [form] = useForm()
     const cars = useDatabaseStore((state) => state.cars)
+    const drawerOpen = useGlobalStore(useShallow((state) => state.drawerState))
     const refetch = useDatabaseStore((state) => state.refetchEstimates)
 
     function getWorkshopData() {
@@ -67,7 +70,7 @@ export default function EstimateFrom(props: Props) {
         } else {
             form.resetFields()
         }
-    }, [props.estimateId])
+    }, [props.estimateId, drawerOpen])
 
     return (
         <Form form={form} onFinish={onFinish}>
