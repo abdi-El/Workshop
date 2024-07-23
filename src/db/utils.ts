@@ -2,6 +2,8 @@ import { message } from 'antd'
 import Database from 'tauri-plugin-sql-api'
 import { SimpleObject } from '../types/common'
 
+export type FkColumns = string[]
+
 export class Db {
     static #instance: Db
     db: Promise<Database>
@@ -20,9 +22,14 @@ export class Db {
 
 export class Model {
     tableName: string
+    relatedTables: { column: string; table: string }[]
 
-    public constructor(tableName: string) {
+    public constructor(tableName: string, fkColumns: FkColumns = []) {
         this.tableName = tableName
+        this.relatedTables = fkColumns.map((column) => ({
+            column,
+            table: column.replace('_id', 's'),
+        }))
     }
 
     public async getDbInstance() {
@@ -45,6 +52,13 @@ export class Model {
         }`
     }
 
+    private get joinQuery() {
+        return this.relatedTables.reduce((accumulator, relatedTable) => {
+            let { table, column } = relatedTable
+            return (accumulator += ` LEFT JOIN ${table} ON ${this.tableName}.${column} = ${table}.id`)
+        }, '')
+    }
+
     private getCreateQuery(params: SimpleObject) {
         let keys = Object.keys(params)
         let keysStrings = `(${keys.join(', ')})`
@@ -64,7 +78,9 @@ export class Model {
 
     public async getAll() {
         let db = await this.getDbInstance()
-        return await db.select(`SELECT * FROM ${this.tableName}`)
+        let selectQuery = `SELECT * FROM ${this.tableName}`
+        selectQuery += this.joinQuery
+        return await db.select(selectQuery)
     }
 
     public async filter() {
