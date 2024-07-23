@@ -4,6 +4,7 @@ import { Button, Popconfirm, Row } from 'antd'
 interface Props {
     onDelete(): void
     onEdit(): void
+    children?: JSX.Element | JSX.Element[]
 }
 
 export default function ActionButtons(props: Props) {
@@ -29,6 +30,7 @@ export default function ActionButtons(props: Props) {
                 icon={<EditOutlined />}
                 onClick={props.onEdit}
             />
+            {props.children}
         </Row>
     )
 }

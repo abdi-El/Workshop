@@ -2,6 +2,8 @@ interface DataBaseInterface {
     id: number
 }
 
+export type WorkDone = { name: string; price: number; quantity: number }
+
 export interface Workshop {
     workshop_name: string
     workshop_address: string
@@ -13,16 +15,6 @@ export interface Workshop {
 
 export interface Settings extends Workshop {
     isDarkTheme: boolean
-}
-
-export interface Estimate extends Workshop, DataBaseInterface {
-    car_id: number
-    customer_id: number
-    works_done: string
-    hours_worked: number
-    discount: number | null
-    notes: string | null
-    km: number
 }
 
 export interface Car extends DataBaseInterface {
@@ -37,4 +29,14 @@ export interface Customer extends DataBaseInterface {
     name: string
     email: string
     phone_number: string
+}
+
+export interface Estimate extends Workshop, DataBaseInterface, Car, Customer {
+    car_id: number
+    customer_id: number
+    works_done: string
+    hours_worked: number
+    discount: number | null
+    notes: string | null
+    km: number
 }
