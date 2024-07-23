@@ -25,8 +25,8 @@ fn main() {
                 model TEXT NOT NULL,
                 number_plate TEXT UNIQUE NOT NULL,
                 km INTEGER NOT NULL,
-                owner_id INTEGER NOT NULL,
-                FOREIGN KEY (owner_id) REFERENCES customers(id) ON DELETE CASCADE
+                customer_id INTEGER NOT NULL,
+                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
             );",
             kind: MigrationKind::Up,
         },
@@ -47,9 +47,9 @@ fn main() {
                 workshop_p_iva TEXT,
                 km INTEGER NOT NULL,
                 car_id INTEGER NOT NULL,
-                owner_id INTEGER NOT NULL,
+                customer_id INTEGER NOT NULL,
                 FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE RESTRICT,
-                FOREIGN KEY (owner_id) REFERENCES customers(id) ON DELETE RESTRICT
+                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE RESTRICT
             );",
             kind: MigrationKind::Up,
         },

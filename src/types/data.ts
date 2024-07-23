@@ -17,7 +17,7 @@ export interface Settings extends Workshop {
 
 export interface Estimate extends Workshop, DataBaseInterface {
     car_id: number
-    owner_id: number
+    customer_id: number
     works_done: string
     hours_worked: number
     discount: number | null
@@ -30,7 +30,7 @@ export interface Car extends DataBaseInterface {
     model: string
     number_plate: string
     km: number
-    owner: number
+    customer_id: number
 }
 
 export interface Customer extends DataBaseInterface {
