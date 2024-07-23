@@ -24,7 +24,7 @@ const EstinateTable: React.FC = () => {
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
-            width: '30%',
+            width: '10%',
             ...getColumnSearchProps(
                 'id',
                 setSearchText,
@@ -33,12 +33,24 @@ const EstinateTable: React.FC = () => {
             ),
         },
         {
-            title: 'Note',
-            dataIndex: 'notes',
-            key: 'notes',
+            title: 'Targa',
+            dataIndex: 'number_plate',
+            key: 'number_plate',
+            width: '20%',
+            ...getColumnSearchProps(
+                'number_plate',
+                setSearchText,
+                setSearchedColumn,
+                searchInput
+            ),
+        },
+        {
+            title: 'Nome Cliente',
+            dataIndex: 'name',
+            key: 'name',
             width: '30%',
             ...getColumnSearchProps(
-                'notes',
+                'name',
                 setSearchText,
                 setSearchedColumn,
                 searchInput
