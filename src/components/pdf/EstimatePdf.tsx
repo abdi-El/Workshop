@@ -1,4 +1,11 @@
-import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
+import {
+    Document,
+    Page,
+    PDFViewer,
+    StyleSheet,
+    Text,
+    View,
+} from '@react-pdf/renderer'
 import { Fragment } from 'react'
 import { Estimate, WorkDone, Workshop } from '../../types/data'
 
@@ -185,15 +192,17 @@ export default function EstimatePdf({ estimate }: Props) {
     )
 
     return (
-        <Document>
-            <Page size="A4" style={styles.page}>
-                <InvoiceTitle />
-                <Address />
-                <UserAddress />
-                <TableHead />
-                <TableBody />
-                <TableTotal />
-            </Page>
-        </Document>
+        <PDFViewer width="100%" height="1000" className="app">
+            <Document title="outputa">
+                <Page size="A4" style={styles.page}>
+                    <InvoiceTitle />
+                    <Address />
+                    <UserAddress />
+                    <TableHead />
+                    <TableBody />
+                    <TableTotal />
+                </Page>
+            </Document>
+        </PDFViewer>
     )
 }

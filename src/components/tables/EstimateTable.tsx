@@ -9,7 +9,7 @@ import useGlobalStore from '../../stores/GlobalStore'
 import { Estimate } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
 import { pathConstants } from '../Layout'
-import EstimateModal, { EtiamteModalProps } from '../modals/EstimateModal'
+import EstimateModal from '../modals/EstimateModal'
 import { getColumnSearchProps } from '../utils'
 
 const EstinateTable: React.FC = () => {
@@ -21,11 +21,8 @@ const EstinateTable: React.FC = () => {
     const navigate = useNavigate()
     const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
 
-    const [modalState, setModalState] = useState<EtiamteModalProps>({
-        open: false,
-        onCancel: () => setModalState((prev) => ({ ...prev, open: false })),
-        estimate: undefined,
-    })
+    const [isOpen, setIsOpen] = useState(false)
+    const [estimate, setEstimate] = useState<Estimate>()
 
     const columns: TableColumnsType<Estimate> = [
         {
@@ -66,27 +63,26 @@ const EstinateTable: React.FC = () => {
         },
         {
             title: 'Azioni',
-            render: (row: Estimate) => {
+            render: (estiamte: Estimate) => {
                 return (
                     <ActionButtons
                         onDelete={() => {
-                            estimates.delete(row.id).then(() => refetch())
+                            estimates.delete(estiamte.id).then(() => refetch())
                         }}
                         onEdit={() => {
-                            navigate(`${pathConstants.ESTIMATES.key}/${row.id}`)
+                            navigate(
+                                `${pathConstants.ESTIMATES.key}/${estiamte.id}`
+                            )
                             setDrawerOpen(true)
                         }}
                     >
                         <Button
                             shape="round"
                             icon={<FilePdfOutlined />}
-                            onClick={() =>
-                                setModalState((prev) => ({
-                                    ...prev,
-                                    open: true,
-                                    estimate: row,
-                                }))
-                            }
+                            onClick={() => {
+                                setIsOpen(true)
+                                setEstimate(estiamte)
+                            }}
                         />
                     </ActionButtons>
                 )
@@ -96,7 +92,13 @@ const EstinateTable: React.FC = () => {
 
     return (
         <>
-            <EstimateModal {...modalState} />
+            {estimate && (
+                <EstimateModal
+                    estimate={estimate}
+                    onCancel={() => setIsOpen(false)}
+                    open={isOpen}
+                />
+            )}
             <Table rowKey="id" columns={columns} dataSource={data} />
         </>
     )
