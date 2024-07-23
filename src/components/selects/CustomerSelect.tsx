@@ -9,7 +9,7 @@ export default function CustomerSelect() {
     return (
         <FormItem
             label="Proprietario"
-            name="owner_id"
+            name="customer_id"
             rules={[
                 {
                     required: true,
