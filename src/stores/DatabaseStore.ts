@@ -18,9 +18,11 @@ const useDatabaseStore = create<StoreState>((set) => ({
     refetchCustomers: () => {
         customers.getAll().then((res) => set({ customers: res as Customer[] }))
         useDatabaseStore.getState().refetchCars()
+        useDatabaseStore.getState().refetchEstimates()
     },
     refetchCars: () => {
         cars.getAll().then((res) => set({ cars: res as Car[] }))
+        useDatabaseStore.getState().refetchEstimates()
     },
     refetchEstimates: () => {
         estimates.getAll().then((res) => set({ estimates: res as Estimate[] }))
