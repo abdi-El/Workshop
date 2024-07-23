@@ -1,5 +1,5 @@
 import { Form } from 'antd'
-import { useForm } from 'antd/es/form/Form'
+import { useForm, useWatch } from 'antd/es/form/Form'
 import { useEffect } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { estimates } from '../../../db/models'
@@ -19,9 +19,11 @@ interface Props {
 
 export default function EstimateFrom(props: Props) {
     const [form] = useForm()
-    const cars = useDatabaseStore((state) => state.cars)
     const drawerOpen = useGlobalStore(useShallow((state) => state.drawerState))
+    const cars = useDatabaseStore((state) => state.cars)
+    let data = useDatabaseStore((state) => state.estimates)
     const refetch = useDatabaseStore((state) => state.refetchEstimates)
+    const customerId = useWatch('customer_id', form)
 
     function getWorkshopData() {
         const workshop_data = JSON.parse(
@@ -55,7 +57,6 @@ export default function EstimateFrom(props: Props) {
             refetch()
         })
     }
-    let data = useDatabaseStore((state) => state.estimates)
     useEffect(() => {
         if (props.estimateId) {
             let currentEstimate = data.filter(
@@ -82,7 +83,7 @@ export default function EstimateFrom(props: Props) {
                         title: 'Cliente:',
                     },
                     {
-                        content: <CarSelect />,
+                        content: <CarSelect customerId={customerId} />,
                         title: 'Auto:',
                     },
                     {

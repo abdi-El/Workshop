@@ -1,11 +1,21 @@
 import { Select } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
+import { useEffect, useState } from 'react'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import { Car } from '../../types/data'
 
-export default function CarSelect() {
-    const cars: Car[] = useDatabaseStore((state) => state.cars)
+interface Props {
+    customerId?: number
+}
 
+export default function CarSelect({ customerId }: Props) {
+    const cars: Car[] = useDatabaseStore((state) => state.cars)
+    const [filteredCars, setFilteredCars] = useState<Car[]>([])
+    useEffect(() => {
+        if (customerId) {
+            setFilteredCars(cars.filter((car) => car.customer_id == customerId))
+        }
+    }, [customerId])
     return (
         <FormItem
             label="Auto"
@@ -24,7 +34,7 @@ export default function CarSelect() {
                         .toLowerCase()
                         .includes(input.toLowerCase())
                 }
-                options={cars.map((car) => ({
+                options={filteredCars.map((car) => ({
                     value: car.id,
                     label: `${car.maker}-${car.model}-${car.number_plate}`,
                 }))}
