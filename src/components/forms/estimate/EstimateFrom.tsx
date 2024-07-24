@@ -62,7 +62,10 @@ export default function EstimateFrom(props: Props) {
             let currentEstimate = data.filter(
                 (estimate) => estimate.id == props.estimateId
             )[0]
-            if (typeof currentEstimate.works_done == 'string') {
+            if (
+                currentEstimate &&
+                typeof currentEstimate.works_done == 'string'
+            ) {
                 currentEstimate.works_done = JSON.parse(
                     currentEstimate.works_done
                 )
