@@ -99,11 +99,7 @@ const WorksForm: React.FC = () => {
                     },
                 ]}
             >
-                <InputNumber
-                    placeholder="ore lavorate"
-                    precision={0.01}
-                    min={0}
-                />
+                <InputNumber placeholder="ore lavorate" step="0.01" min={0.0} />
             </Form.Item>
             <Form.Item name="notes" label="Note">
                 <Input.TextArea
