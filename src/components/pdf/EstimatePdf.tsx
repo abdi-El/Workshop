@@ -6,17 +6,27 @@ import {
     Text,
     View,
 } from '@react-pdf/renderer'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import { estimates } from '../../db/models'
 import { Estimate, WorkDone, Workshop } from '../../types/data'
 
 interface Props {
-    estimate: Estimate
+    id: number
 }
 
-export default function EstimatePdf({ estimate }: Props) {
+export default function EstimatePdf({ id }: Props) {
     let workShopData = JSON.parse(
         localStorage.getItem('settings') || '{}'
     ) as Workshop
+
+    let [estimate, setEstimates] = useState<Estimate>()
+
+    useEffect(() => {
+        estimates.get({ id }).then((res) => {
+            setEstimates(res)
+        })
+    }, [id])
+
     const styles = StyleSheet.create({
         page: {
             fontSize: 11,
@@ -193,16 +203,18 @@ export default function EstimatePdf({ estimate }: Props) {
 
     return (
         <PDFViewer width="100%" height="1000" className="app">
-            <Document title="outputa">
-                <Page size="A4" style={styles.page}>
-                    <InvoiceTitle />
-                    <Address />
-                    <UserAddress />
-                    <TableHead />
-                    <TableBody />
-                    <TableTotal />
-                </Page>
-            </Document>
+            {estimate && (
+                <Document title="outputa">
+                    <Page size="A4" style={styles.page}>
+                        <InvoiceTitle />
+                        <Address />
+                        <UserAddress />
+                        <TableHead />
+                        <TableBody />
+                        <TableTotal />
+                    </Page>
+                </Document>
+            )}
         </PDFViewer>
     )
 }

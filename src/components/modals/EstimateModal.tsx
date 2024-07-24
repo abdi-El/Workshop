@@ -12,7 +12,7 @@ export default function EstimateModal({
 }: EtiamteModalProps) {
     return (
         <Modal title="Preventivo PDF" centered {...modalProps} width={'80vw'}>
-            <EstimatePdf estimate={estimate} />
+            <EstimatePdf id={estimate.id} />
         </Modal>
     )
 }

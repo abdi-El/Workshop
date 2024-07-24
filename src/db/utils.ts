@@ -20,7 +20,7 @@ export class Db {
     }
 }
 
-export class Model {
+export class Model<DataType> {
     tableName: string
     relatedTables: { column: string; table: string }[]
 
@@ -76,16 +76,55 @@ export class Model {
         return await db.execute(sqlQuery, params)
     }
 
-    public async getAll() {
+    private objectToSQLWhere(obj: SimpleObject) {
+        return (
+            'WHERE ' +
+            Object.keys(obj)
+                .map((key) => {
+                    let value = obj[key]
+                    if (typeof value === 'string') {
+                        value = `'${value}'`
+                    }
+                    return `${key}=${value}`
+                })
+                .join(' AND ')
+        )
+    }
+
+    public async getAll(selectRelated = false): Promise<DataType> {
         let db = await this.getDbInstance()
         let selectQuery = `SELECT * FROM ${this.tableName}`
-        selectQuery += this.joinQuery
+        if (selectRelated) {
+            selectQuery += this.joinQuery
+        }
         return await db.select(selectQuery)
     }
 
-    public async filter() {
+    public async get(filters: SimpleObject, selectRelated = false) {
+        return new Promise<DataType>(async (resolve, reject) => {
+            this.filter(filters, selectRelated)
+                .then((res) => {
+                    resolve(res[0] as DataType)
+                })
+                .catch((err) => {
+                    message.error(err)
+                    reject(err)
+                })
+        })
+    }
+
+    public async filter(
+        filters: SimpleObject,
+        selectRelated = false
+    ): Promise<DataType[]> {
         let db = await this.getDbInstance()
-        return await db.select(`SELECT * FROM ${this.tableName}`)
+        let selectQuery = `SELECT * FROM ${
+            this.tableName
+        } ${this.objectToSQLWhere(filters)}`
+        if (selectRelated) {
+            selectQuery += this.joinQuery
+        }
+        return await db.select(selectQuery)
     }
 
     public async update(data: SimpleObject, id: number) {
@@ -105,12 +144,12 @@ export class Model {
         })
     }
 
-    public async create(data: SimpleObject) {
+    public async create(data: SimpleObject): Promise<DataType> {
         return new Promise(async (resolve, reject) => {
             this.createOrUpdate(this.getCreateQuery(data), Object.values(data))
                 .then((res) => {
                     message.success('Creazione andata a buon fine')
-                    resolve(res)
+                    resolve(res as DataType)
                 })
                 .catch((err) => {
                     message.error(err)

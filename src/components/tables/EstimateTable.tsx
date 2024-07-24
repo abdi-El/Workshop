@@ -38,30 +38,6 @@ const EstinateTable: React.FC = () => {
             ),
         },
         {
-            title: 'Targa',
-            dataIndex: 'number_plate',
-            key: 'number_plate',
-            width: '20%',
-            ...getColumnSearchProps(
-                'number_plate',
-                setSearchText,
-                setSearchedColumn,
-                searchInput
-            ),
-        },
-        {
-            title: 'Nome Cliente',
-            dataIndex: 'name',
-            key: 'name',
-            width: '30%',
-            ...getColumnSearchProps(
-                'name',
-                setSearchText,
-                setSearchedColumn,
-                searchInput
-            ),
-        },
-        {
             title: 'Azioni',
             render: (estiamte: Estimate) => {
                 return (
