@@ -22,14 +22,9 @@ export class Db {
 
 export class Model<DataType> {
     tableName: string
-    relatedTables: { column: string; table: string }[]
 
-    public constructor(tableName: string, fkColumns: FkColumns = []) {
+    public constructor(tableName: string) {
         this.tableName = tableName
-        this.relatedTables = fkColumns.map((column) => ({
-            column,
-            table: column.replace('_id', 's'),
-        }))
     }
 
     public async getDbInstance() {
@@ -50,13 +45,6 @@ export class Model<DataType> {
         return `UPDATE ${this.tableName} SET ${columnsToUpdate} WHERE id=$${
             keys.length + 1
         }`
-    }
-
-    private get joinQuery() {
-        return this.relatedTables.reduce((accumulator, relatedTable) => {
-            let { table, column } = relatedTable
-            return (accumulator += ` LEFT JOIN ${table} ON ${this.tableName}.${column} = ${table}.id`)
-        }, '')
     }
 
     private getCreateQuery(params: SimpleObject) {
