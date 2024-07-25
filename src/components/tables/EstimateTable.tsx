@@ -71,7 +71,9 @@ const EstinateTable: React.FC = () => {
             {estimate && (
                 <EstimateModal
                     estimate={estimate}
-                    onCancel={() => setIsOpen(false)}
+                    onCancel={() => {
+                        setIsOpen(false), setEstimate(undefined)
+                    }}
                     open={isOpen}
                 />
             )}
