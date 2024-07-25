@@ -22,7 +22,7 @@ export default function EstimatePdf({ id }: Props) {
     let [estimate, setEstimates] = useState<Estimate>()
 
     useEffect(() => {
-        estimates.get({ id }).then((res) => {
+        estimates.get({ 'estimates.id': id }, true).then((res) => {
             setEstimates(res)
         })
     }, [id])
