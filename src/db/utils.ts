@@ -91,18 +91,15 @@ export class Model<DataType> {
         )
     }
 
-    public async getAll(selectRelated = false): Promise<DataType> {
+    public async getAll(): Promise<DataType> {
         let db = await this.getDbInstance()
         let selectQuery = `SELECT * FROM ${this.tableName}`
-        if (selectRelated) {
-            selectQuery += this.joinQuery
-        }
         return await db.select(selectQuery)
     }
 
-    public async get(filters: SimpleObject, selectRelated = false) {
+    public async get(filters: SimpleObject) {
         return new Promise<DataType>(async (resolve, reject) => {
-            this.filter(filters, selectRelated)
+            this.filter(filters)
                 .then((res) => {
                     resolve(res[0] as DataType)
                 })
@@ -113,17 +110,11 @@ export class Model<DataType> {
         })
     }
 
-    public async filter(
-        filters: SimpleObject,
-        selectRelated = false
-    ): Promise<DataType[]> {
+    public async filter(filters: SimpleObject): Promise<DataType[]> {
         let db = await this.getDbInstance()
         let selectQuery = `SELECT * FROM ${
             this.tableName
         } ${this.objectToSQLWhere(filters)}`
-        if (selectRelated) {
-            selectQuery += this.joinQuery
-        }
         return await db.select(selectQuery)
     }
 
