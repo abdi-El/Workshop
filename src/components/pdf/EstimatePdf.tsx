@@ -7,11 +7,34 @@ import {
     View,
 } from '@react-pdf/renderer'
 import { Fragment, useEffect, useState } from 'react'
-import { estimates } from '../../db/models'
-import { Estimate, WorkDone, Workshop } from '../../types/data'
+import { Db } from '../../db/utils'
+import { WorkDone, Workshop } from '../../types/data'
 
 interface Props {
     id: number
+}
+
+interface EstimateForPdf {
+    customer_id: number
+    works_done: string
+    car_id: number
+    id: number
+    workshop_phone_number: string
+    workshop_address: string
+    car_maker: string
+    customer_phone: string
+    hours_worked: number
+    workshop_name: string
+    discount: number
+    car_model: string
+    car_number_plate: string
+    customer_name: string
+    customer_email: string
+    km: number
+    iva: number
+    workforce_price: number
+    notes: string
+    workshop_p_iva: number
 }
 
 export default function EstimatePdf({ id }: Props) {
@@ -19,11 +42,30 @@ export default function EstimatePdf({ id }: Props) {
         localStorage.getItem('settings') || '{}'
     ) as Workshop
 
-    let [estimate, setEstimates] = useState<Estimate>()
+    let [estimate, setEstimates] = useState<EstimateForPdf>()
+
+    async function getEstimate(estiamteId: number): Promise<EstimateForPdf[]> {
+        let db = await Db.instance.db
+        return await db.select(`SELECT 
+            e.*,
+            c.name AS customer_name,
+            c.email AS customer_email,
+            c.phone_number AS customer_phone,
+            car.maker AS car_maker,
+            car.model AS car_model,
+            car.number_plate AS car_number_plate
+        FROM 
+            estimates e
+        LEFT JOIN 
+            customers c ON e.customer_id = c.id
+        LEFT JOIN 
+            cars car ON e.car_id = car.id
+        WHERE e.id = ${estiamteId};`)
+    }
 
     useEffect(() => {
-        estimates.get({ 'estimates.id': id }).then((res) => {
-            setEstimates(res)
+        getEstimate(id).then((estimates) => {
+            setEstimates(estimates[0])
         })
     }, [id])
 
@@ -138,50 +180,88 @@ export default function EstimatePdf({ id }: Props) {
                 <View style={styles.spaceBetween}>
                     <View style={{ maxWidth: 200 }}>
                         <Text style={styles.addressTitle}>Per: </Text>
-                        <Text style={styles.address}>{estimate.name}</Text>
+                        <Text style={styles.address}>
+                            {estimate.customer_name}
+                        </Text>
                     </View>
-                    <Text style={styles.addressTitle}>{estimate.email}</Text>
+                    <Text style={styles.addressTitle}>
+                        {estimate.customer_email}
+                    </Text>
                 </View>
             </View>
         )
 
-    const TableHead = () => (
+    const TableHead = ({ columns }: { columns: string[] }) => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
-            <View style={[styles.theader, styles.theader2]}>
-                <Text>Items</Text>
-            </View>
-            <View style={styles.theader}>
-                <Text>Price</Text>
-            </View>
-            <View style={styles.theader}>
-                <Text>Qty</Text>
-            </View>
-            <View style={styles.theader}>
-                <Text>Amount</Text>
-            </View>
+            {columns.map((column) => (
+                <View style={styles.theader}>
+                    <Text>{column}</Text>
+                </View>
+            ))}
         </View>
     )
 
-    const TableBody = () =>
-        estimate &&
-        (JSON.parse(estimate.works_done) || []).map((work: WorkDone) => (
-            <Fragment key={work.name}>
+    const WorksTable = () => (
+        <>
+            <TableHead
+                columns={[
+                    'Voce',
+                    'Prezzo Unitario',
+                    'Quantità',
+                    'Prezzo Totale',
+                ]}
+            />
+            {estimate &&
+                (JSON.parse(estimate.works_done) || []).map(
+                    (work: WorkDone) => (
+                        <Fragment key={work.name}>
+                            <View
+                                style={{ width: '100%', flexDirection: 'row' }}
+                            >
+                                <View style={[styles.tbody, styles.tbody2]}>
+                                    <Text>{work.name}</Text>
+                                </View>
+                                <View style={styles.tbody}>
+                                    <Text>{work.price} </Text>
+                                </View>
+                                <View style={styles.tbody}>
+                                    <Text>{work.quantity}</Text>
+                                </View>
+                                <View style={styles.tbody}>
+                                    <Text>
+                                        {(work.price * work.quantity).toFixed(
+                                            2
+                                        )}
+                                    </Text>
+                                </View>
+                            </View>
+                        </Fragment>
+                    )
+                )}
+        </>
+    )
+
+    const CarTable = () => (
+        <>
+            <TableHead columns={['Targa', 'Marca', 'Modello', 'Km']} />
+            {estimate && (
                 <View style={{ width: '100%', flexDirection: 'row' }}>
                     <View style={[styles.tbody, styles.tbody2]}>
-                        <Text>{work.name}</Text>
+                        <Text>{estimate.car_number_plate}</Text>
                     </View>
                     <View style={styles.tbody}>
-                        <Text>{work.price} </Text>
+                        <Text>{estimate.car_maker} </Text>
                     </View>
                     <View style={styles.tbody}>
-                        <Text>{work.quantity}</Text>
+                        <Text>{estimate.car_model}</Text>
                     </View>
                     <View style={styles.tbody}>
-                        <Text>{(work.price * work.quantity).toFixed(2)}</Text>
+                        <Text>{estimate.km}</Text>
                     </View>
                 </View>
-            </Fragment>
-        ))
+            )}
+        </>
+    )
 
     const TableTotal = () =>
         estimate && (
@@ -215,8 +295,8 @@ export default function EstimatePdf({ id }: Props) {
                         <InvoiceTitle />
                         <Address />
                         <UserAddress />
-                        <TableHead />
-                        <TableBody />
+                        <CarTable />
+                        <WorksTable />
                         <TableTotal />
                     </Page>
                 </Document>
