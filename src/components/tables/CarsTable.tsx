@@ -11,8 +11,8 @@ import { pathConstants } from '../Layout'
 import { getColumnSearchProps } from '../utils'
 
 const CarsTable: React.FC = () => {
-    const [searchText, setSearchText] = useState('')
-    const [searchedColumn, setSearchedColumn] = useState('')
+    const [_, setSearchText] = useState('')
+    const [__, setSearchedColumn] = useState('')
     const data = useDatabaseStore((state) => state.cars)
     const refetch = useDatabaseStore((state) => state.refetchCars)
     const searchInput = useRef<InputRef>(null)

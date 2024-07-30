@@ -62,7 +62,7 @@ export class Model<DataType> {
     private getCreateQuery(params: SimpleObject) {
         let keys = Object.keys(params)
         let keysStrings = `(${keys.join(', ')})`
-        let values = `(${keys.reduce((accumulator, key, index) => {
+        let values = `(${keys.reduce((accumulator, _, index) => {
             let value = index + 1
             let stringValue = value != keys.length ? `$${value}, ` : `$${value}`
             return accumulator + stringValue
@@ -91,7 +91,7 @@ export class Model<DataType> {
         )
     }
 
-    public async getAll(selectRelated = false): Promise<DataType> {
+    public async getAll(selectRelated = false): Promise<DataType[]> {
         let db = await this.getDbInstance()
         let selectQuery = `SELECT * FROM ${this.tableName}`
         if (selectRelated) {

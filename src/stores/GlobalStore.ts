@@ -19,7 +19,7 @@ const useGlobalStore = create<GlobalState>()((set) => ({
         })
     },
     updateDrawerState: (newDrawerState) => {
-        set((state) => ({ drawerState: newDrawerState }))
+        set((_) => ({ drawerState: newDrawerState }))
     },
 }))
 useGlobalStore.setState({

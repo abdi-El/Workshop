@@ -13,8 +13,8 @@ import EstimateModal from '../modals/EstimateModal'
 import { getColumnSearchProps } from '../utils'
 
 const EstinateTable: React.FC = () => {
-    const [searchText, setSearchText] = useState('')
-    const [searchedColumn, setSearchedColumn] = useState('')
+    const [_, setSearchText] = useState('')
+    const [__, setSearchedColumn] = useState('')
     const data = useDatabaseStore((state) => state.estimates)
     const refetch = useDatabaseStore((state) => state.refetchEstimates)
     const searchInput = useRef<InputRef>(null)

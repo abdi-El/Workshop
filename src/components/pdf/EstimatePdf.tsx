@@ -107,39 +107,43 @@ export default function EstimatePdf({ id }: Props) {
         </View>
     )
 
-    const Address = () => (
-        <View style={styles.titleContainer}>
-            <View style={styles.spaceBetween}>
-                <View>
-                    <Text style={styles.invoice}></Text>
-                    <Text style={styles.invoiceNumber}>N°: {estimate.id}</Text>
-                </View>
-                <View>
-                    <Text style={styles.addressTitle}>
-                        Indirizzo: {workShopData.workshop_address}
-                    </Text>
-                    <Text style={styles.addressTitle}>
-                        Partita Iva: {workShopData.workshop_p_iva}
-                    </Text>
-                    <Text style={styles.addressTitle}>
-                        Telefono: {workShopData.workshop_phone_number}
-                    </Text>
+    const Address = () =>
+        estimate && (
+            <View style={styles.titleContainer}>
+                <View style={styles.spaceBetween}>
+                    <View>
+                        <Text style={styles.invoice}></Text>
+                        <Text style={styles.invoiceNumber}>
+                            N°: {estimate.id}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.addressTitle}>
+                            Indirizzo: {workShopData.workshop_address}
+                        </Text>
+                        <Text style={styles.addressTitle}>
+                            Partita Iva: {workShopData.workshop_p_iva}
+                        </Text>
+                        <Text style={styles.addressTitle}>
+                            Telefono: {workShopData.workshop_phone_number}
+                        </Text>
+                    </View>
                 </View>
             </View>
-        </View>
-    )
+        )
 
-    const UserAddress = () => (
-        <View style={styles.titleContainer}>
-            <View style={styles.spaceBetween}>
-                <View style={{ maxWidth: 200 }}>
-                    <Text style={styles.addressTitle}>Per: </Text>
-                    <Text style={styles.address}>{estimate.name}</Text>
+    const UserAddress = () =>
+        estimate && (
+            <View style={styles.titleContainer}>
+                <View style={styles.spaceBetween}>
+                    <View style={{ maxWidth: 200 }}>
+                        <Text style={styles.addressTitle}>Per: </Text>
+                        <Text style={styles.address}>{estimate.name}</Text>
+                    </View>
+                    <Text style={styles.addressTitle}>{estimate.email}</Text>
                 </View>
-                <Text style={styles.addressTitle}>{estimate.email}</Text>
             </View>
-        </View>
-    )
+        )
 
     const TableHead = () => (
         <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
@@ -159,6 +163,7 @@ export default function EstimatePdf({ id }: Props) {
     )
 
     const TableBody = () =>
+        estimate &&
         (JSON.parse(estimate.works_done) || []).map((work: WorkDone) => (
             <Fragment key={work.name}>
                 <View style={{ width: '100%', flexDirection: 'row' }}>
@@ -178,28 +183,29 @@ export default function EstimatePdf({ id }: Props) {
             </Fragment>
         ))
 
-    const TableTotal = () => (
-        <View style={{ width: '100%', flexDirection: 'row' }}>
-            <View style={styles.total}>
-                <Text></Text>
+    const TableTotal = () =>
+        estimate && (
+            <View style={{ width: '100%', flexDirection: 'row' }}>
+                <View style={styles.total}>
+                    <Text></Text>
+                </View>
+                <View style={styles.total}>
+                    <Text> </Text>
+                </View>
+                <View style={styles.tbody}>
+                    <Text>Total</Text>
+                </View>
+                <View style={styles.tbody}>
+                    <Text>
+                        {(JSON.parse(estimate.works_done) || []).reduce(
+                            (sum: number, item: WorkDone) =>
+                                sum + item.price * item.quantity,
+                            0
+                        )}
+                    </Text>
+                </View>
             </View>
-            <View style={styles.total}>
-                <Text> </Text>
-            </View>
-            <View style={styles.tbody}>
-                <Text>Total</Text>
-            </View>
-            <View style={styles.tbody}>
-                <Text>
-                    {(JSON.parse(estimate.works_done) || []).reduce(
-                        (sum: number, item: WorkDone) =>
-                            sum + item.price * item.quantity,
-                        0
-                    )}
-                </Text>
-            </View>
-        </View>
-    )
+        )
 
     return (
         <PDFViewer width="100%" height="1000" className="app">

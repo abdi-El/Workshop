@@ -42,9 +42,7 @@ export default function CarsForm({ carId, onFinish }: Props) {
 
     useEffect(() => {
         if (carId) {
-            form.setFieldsValue(
-                data.filter((car) => car.id == parseInt(carId))[0]
-            )
+            form.setFieldsValue(data.filter((car) => car.id == carId)[0])
         } else {
             form.resetFields()
         }
