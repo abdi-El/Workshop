@@ -1,5 +1,5 @@
 import type { InputRef, TableColumnsType } from 'antd'
-import { message, Table } from 'antd'
+import { Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { cars } from '../../db/models'
@@ -57,10 +57,7 @@ const CarsTable: React.FC = () => {
                 return (
                     <ActionButtons
                         onDelete={() => {
-                            cars.delete(row.id).then(() => {
-                                message.success('Auto eliminata correttamente')
-                                refetch()
-                            })
+                            cars.delete(row.id).then(() => refetch())
                         }}
                         onEdit={() => {
                             navigate(`${pathConstants.CARS.key}/${row.id}`)
