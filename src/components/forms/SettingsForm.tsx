@@ -86,7 +86,7 @@ export default function SettingsForm() {
                 </Col>
                 <Col span={12}>
                     <Form.Item
-                        label="Prezzo base ora"
+                        label="Iva di default"
                         name="iva"
                         initialValue={22}
                         rules={[
