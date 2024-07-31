@@ -8,33 +8,10 @@ import {
 } from '@react-pdf/renderer'
 import { Fragment, useEffect, useState } from 'react'
 import { Db } from '../../db/utils'
-import { WorkDone, Workshop } from '../../types/data'
+import { EstimateWithRelated, WorkDone, Workshop } from '../../types/data'
 
 interface Props {
     id: number
-}
-
-interface EstimateForPdf {
-    customer_id: number
-    works_done: string
-    car_id: number
-    id: number
-    workshop_phone_number: string
-    workshop_address: string
-    car_maker: string
-    customer_phone: string
-    hours_worked: number
-    workshop_name: string
-    discount: number
-    car_model: string
-    car_number_plate: string
-    customer_name: string
-    customer_email: string
-    km: number
-    iva: number
-    workforce_price: number
-    notes: string
-    workshop_p_iva: number
 }
 
 export default function EstimatePdf({ id }: Props) {
@@ -42,9 +19,11 @@ export default function EstimatePdf({ id }: Props) {
         localStorage.getItem('settings') || '{}'
     ) as Workshop
 
-    let [estimate, setEstimates] = useState<EstimateForPdf>()
+    let [estimate, setEstimates] = useState<EstimateWithRelated>()
 
-    async function getEstimate(estiamteId: number): Promise<EstimateForPdf[]> {
+    async function getEstimate(
+        estiamteId: number
+    ): Promise<EstimateWithRelated[]> {
         let db = await Db.instance.db
         return await db.select(`SELECT 
             e.*,

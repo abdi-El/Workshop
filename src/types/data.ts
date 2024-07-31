@@ -40,3 +40,15 @@ export interface Estimate extends Workshop, DataBaseInterface, Car, Customer {
     notes: string | null
     km: number
 }
+
+export interface EstimateWithRelated extends Workshop {
+    customer_id: number
+    customer_phone: string
+    customer_name: string
+    customer_email: string
+    car_id: number
+    car_maker: string
+    car_model: string
+    car_number_plate: string
+    km: number
+}
