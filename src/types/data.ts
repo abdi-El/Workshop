@@ -1,5 +1,7 @@
 interface DataBaseInterface {
     id: number
+    created_at: string
+    updated_at: string
 }
 
 export type WorkDone = { name: string; price: number; quantity: number }

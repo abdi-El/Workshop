@@ -108,6 +108,11 @@ export class Model<DataType> {
 
     public async update(data: SimpleObject, id: number) {
         return new Promise(async (resolve, reject) => {
+            for (let key in data) {
+                if (key === 'updated_at') {
+                    data[key] = new Date().toISOString()
+                }
+            }
             this.createOrUpdate(this.getUpdateQuery(data), [
                 ...Object.values(data),
                 id,
