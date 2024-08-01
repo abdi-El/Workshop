@@ -66,17 +66,20 @@ fn main() {
             sql: "
                 CREATE TRIGGER estimates_updated_at AFTER UPDATE ON estimates
                 BEGIN
-                update estimates SET updated_at = datetime('now');
+                    update estimates SET updated_at = datetime('now')
+                    WHERE id = NEW.id;
                 END;
             
                 CREATE TRIGGER customers_updated_at AFTER UPDATE ON customers
                 BEGIN
-                update customers SET updated_at = datetime('now');
+                    update customers SET updated_at = datetime('now')
+                    WHERE id = NEW.id;
                 END;
             
                 CREATE TRIGGER cars_updated_at AFTER UPDATE ON cars
                 BEGIN
-                update cars SET updated_at = datetime('now');
+                    update cars SET updated_at = datetime('now')
+                    WHERE id = NEW.id;
                 END;
             ",
             kind: MigrationKind::Up,

@@ -81,7 +81,7 @@ export class Model<DataType> {
 
     public async getAll(): Promise<DataType[]> {
         let db = await this.getDbInstance()
-        let selectQuery = `SELECT * FROM ${this.tableName} ORDER BY updated_at ASC`
+        let selectQuery = `SELECT * FROM ${this.tableName} ORDER BY updated_at DESC`
         return await db.select(selectQuery)
     }
 
