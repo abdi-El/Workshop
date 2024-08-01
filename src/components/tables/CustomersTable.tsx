@@ -1,5 +1,5 @@
 import type { InputRef, TableColumnsType } from 'antd'
-import { message, Table } from 'antd'
+import { Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { customers } from '../../db/models'
@@ -62,9 +62,6 @@ const CustomersTable: React.FC = () => {
                     <ActionButtons
                         onDelete={() => {
                             customers.delete(row.id).then(() => {
-                                message.success(
-                                    'Utente eliminato correttamente'
-                                )
                                 refetch()
                             })
                         }}

@@ -14,8 +14,8 @@ fn main() {
                 email TEXT UNIQUE NOT NULL, 
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                phone_number TEXT UNIQUE NOT NULL
-            );",
+                phone_number TEXT UNIQUE NOT NULL);
+            ",
             kind: MigrationKind::Up,
         },
         Migration {
@@ -30,14 +30,15 @@ fn main() {
                 customer_id INTEGER NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
-            );",
+                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE);
+            ",
             kind: MigrationKind::Up,
         },
         Migration {
             version: 3,
             description: "create_estimates_table",
-            sql: "CREATE TABLE estimates (
+            sql: "
+                CREATE TABLE estimates (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 works_done TEXT,
                 workforce_price REAL NOT NULL,
@@ -54,11 +55,33 @@ fn main() {
                 customer_id INTEGER NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE RESTRICT,
-                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE RESTRICT
-            );",
+                FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE CASCADE,
+                FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE);
+            ",
             kind: MigrationKind::Up,
         },
+        Migration {
+            version: 4,
+            description: "add_trigger_for_timestamp",
+            sql: "
+                CREATE TRIGGER estimates_updated_at AFTER UPDATE ON estimates
+                BEGIN
+                update estimates SET updated_at = datetime('now');
+                END;
+            
+                CREATE TRIGGER customers_updated_at AFTER UPDATE ON customers
+                BEGIN
+                update customers SET updated_at = datetime('now');
+                END;
+            
+                CREATE TRIGGER cars_updated_at AFTER UPDATE ON cars
+                BEGIN
+                update cars SET updated_at = datetime('now');
+                END;
+            ",
+            kind: MigrationKind::Up,
+            
+        }
     ];
 
     tauri::Builder::default()

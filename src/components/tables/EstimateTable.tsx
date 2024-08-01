@@ -38,6 +38,18 @@ const EstinateTable: React.FC = () => {
             ),
         },
         {
+            title: 'Creato il',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            width: '20%',
+        },
+        {
+            title: 'Aggiornato il',
+            dataIndex: 'updated_at',
+            key: 'updated_at',
+            width: '20%',
+        },
+        {
             title: 'Azioni',
             render: (estiamte: Estimate) => {
                 return (
