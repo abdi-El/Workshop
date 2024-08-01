@@ -2,6 +2,7 @@ import { CarOutlined, FileDoneOutlined, UserOutlined } from '@ant-design/icons'
 import { Card, Statistic, StatisticProps } from 'antd'
 import React from 'react'
 import CountUp from 'react-countup'
+import { useNavigate } from 'react-router-dom'
 import useDatabaseStore from '../stores/DatabaseStore'
 
 const gridStyle: React.CSSProperties = {
@@ -25,21 +26,22 @@ function NumberStatistic(props: { value: number; title: string }) {
 
 export default function HomaPage() {
     const { estimates, cars, customers } = useDatabaseStore((state) => state)
+    const navigate = useNavigate()
 
     return (
         <Card title="Riepilogo">
-            <Card.Grid style={gridStyle}>
+            <Card.Grid style={gridStyle} onClick={() => navigate('/estimates')}>
                 <FileDoneOutlined />{' '}
                 <NumberStatistic
                     value={estimates.length}
                     title="Preventivi totali"
                 />
             </Card.Grid>
-            <Card.Grid style={gridStyle}>
+            <Card.Grid style={gridStyle} onClick={() => navigate('/cars')}>
                 <CarOutlined />{' '}
                 <NumberStatistic value={cars.length} title="Auto totali" />
             </Card.Grid>
-            <Card.Grid style={gridStyle}>
+            <Card.Grid style={gridStyle} onClick={() => navigate('/customers')}>
                 <UserOutlined />{' '}
                 <NumberStatistic
                     value={customers.length}
