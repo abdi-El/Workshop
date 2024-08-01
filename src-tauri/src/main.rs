@@ -12,7 +12,9 @@ fn main() {
                 id INTEGER PRIMARY KEY, 
                 name TEXT NOT NULL, 
                 email TEXT UNIQUE NOT NULL, 
-                phone_number TEXT UNIQUE NOT NULL
+                phone_number TEXT UNIQUE NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );",
             kind: MigrationKind::Up,
         },
@@ -27,6 +29,8 @@ fn main() {
                 km INTEGER NOT NULL,
                 customer_id INTEGER NOT NULL,
                 FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );",
             kind: MigrationKind::Up,
         },
@@ -50,6 +54,8 @@ fn main() {
                 customer_id INTEGER NOT NULL,
                 FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE RESTRICT,
                 FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE RESTRICT
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );",
             kind: MigrationKind::Up,
         },
