@@ -32,7 +32,10 @@ export class Model<DataType> {
     }
 
     private getUpdateQuery(params: SimpleObject) {
-        let keys = Object.keys(params)
+        let keys = Object.keys(params).filter(
+            (key) => !['updated_at', 'created_at'].includes(key)
+        )
+        console.log(keys)
         let columnsToUpdate = keys.reduce((accumulator, key, index, arr) => {
             let value = index + 1
             let stringValue =
@@ -48,7 +51,9 @@ export class Model<DataType> {
     }
 
     private getCreateQuery(params: SimpleObject) {
-        let keys = Object.keys(params)
+        let keys = Object.keys(params).filter(
+            (key) => !['updated_at', 'created_at'].includes(key)
+        )
         let keysStrings = `(${keys.join(', ')})`
         let values = `(${keys.reduce((accumulator, _, index) => {
             let value = index + 1

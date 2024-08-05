@@ -33,7 +33,7 @@ export interface Customer extends DataBaseInterface {
     phone_number: string
 }
 
-export interface Estimate extends Workshop, DataBaseInterface, Car, Customer {
+export interface Estimate extends Workshop, DataBaseInterface {
     car_id: number
     customer_id: number
     works_done: string
@@ -43,7 +43,7 @@ export interface Estimate extends Workshop, DataBaseInterface, Car, Customer {
     km: number
 }
 
-export interface EstimateWithRelated extends Workshop {
+export interface EstimateWithRelated extends Estimate {
     customer_id: number
     customer_phone: string
     customer_name: string

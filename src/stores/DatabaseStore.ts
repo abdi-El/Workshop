@@ -19,7 +19,8 @@ async function getEstimates() {
         LEFT JOIN 
             customers c ON e.customer_id = c.id
         LEFT JOIN 
-            cars car ON e.car_id = car.id;`
+            cars car ON e.car_id = car.id
+        ORDER BY id DESC;`
     )
 }
 

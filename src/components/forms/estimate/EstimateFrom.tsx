@@ -5,7 +5,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { estimates } from '../../../db/models'
 import useDatabaseStore from '../../../stores/DatabaseStore'
 import useGlobalStore from '../../../stores/GlobalStore'
-import { Estimate, Settings } from '../../../types/data'
+import { Estimate, EstimateWithRelated, Settings } from '../../../types/data'
 import SwitchSteps from '../../buttons/SwitchSteps'
 import CarSelect from '../../selects/CarSelect'
 import CustomerSelect from '../../selects/CustomerSelect'
@@ -15,6 +15,33 @@ import WorksForm from './WorksForm'
 interface Props {
     onFinish?(): void
     estimateId?: number
+}
+
+function extractKeys(data: EstimateWithRelated): Estimate {
+    let keys: Array<keyof Estimate> = [
+        'car_id',
+        'customer_id',
+        'works_done',
+        'hours_worked',
+        'discount',
+        'notes',
+        'km',
+        'workshop_name',
+        'workshop_address',
+        'workshop_phone_number',
+        'workshop_p_iva',
+        'workforce_price',
+        'iva',
+        'id',
+        'created_at',
+        'updated_at',
+    ]
+    return Object.keys(data).reduce((acc: any, key: any) => {
+        if (keys.includes(key)) {
+            acc[key] = data[key as keyof EstimateWithRelated]
+        }
+        return acc
+    }, {})
 }
 
 export default function EstimateFrom(props: Props) {
@@ -38,7 +65,7 @@ export default function EstimateFrom(props: Props) {
     }
 
     function onFinish() {
-        let formData = form.getFieldsValue(true) as Estimate
+        let formData = extractKeys(form.getFieldsValue(true))
         formData = {
             ...formData,
             ...getWorkshopData(),
