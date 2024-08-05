@@ -7,7 +7,7 @@ import { estimates } from '../../db/models'
 import { parseDate } from '../../modules/utils'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import useGlobalStore from '../../stores/GlobalStore'
-import { Estimate, EstimateWithRelated } from '../../types/data'
+import { EstimateWithRelated } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
 import { pathConstants } from '../Layout'
 import EstimateModal from '../modals/EstimateModal'
@@ -71,7 +71,7 @@ const EstinateTable: React.FC = () => {
         },
         {
             title: 'Azioni',
-            render: (estiamte: Estimate) => {
+            render: (estiamte: EstimateWithRelated) => {
                 return (
                     <ActionButtons
                         onDelete={() => {
