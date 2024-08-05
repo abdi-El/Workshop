@@ -4,9 +4,10 @@ import { Button, Table } from 'antd'
 import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { estimates } from '../../db/models'
+import { parseDate } from '../../modules/utils'
 import useDatabaseStore from '../../stores/DatabaseStore'
 import useGlobalStore from '../../stores/GlobalStore'
-import { Estimate } from '../../types/data'
+import { Estimate, EstimateWithRelated } from '../../types/data'
 import ActionButtons from '../buttons/ActionButtons'
 import { pathConstants } from '../Layout'
 import EstimateModal from '../modals/EstimateModal'
@@ -24,7 +25,7 @@ const EstinateTable: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [estimate, setEstimate] = useState<Estimate>()
 
-    const columns: TableColumnsType<Estimate> = [
+    const columns: TableColumnsType<EstimateWithRelated> = [
         {
             title: 'Id',
             dataIndex: 'id',
@@ -38,16 +39,35 @@ const EstinateTable: React.FC = () => {
             ),
         },
         {
-            title: 'Creato il',
+            title: 'Cliente',
+            dataIndex: 'customer_name',
+            key: 'customer_name',
+            width: '10%',
+            ...getColumnSearchProps(
+                'customer_name',
+                setSearchText,
+                setSearchedColumn,
+                searchInput
+            ),
+        },
+        {
+            title: 'Targa',
+            dataIndex: 'car_number_plate',
+            key: 'car_number_plate',
+            width: '10%',
+            ...getColumnSearchProps(
+                'car_number_plate',
+                setSearchText,
+                setSearchedColumn,
+                searchInput
+            ),
+        },
+        {
+            title: 'Data creazione',
             dataIndex: 'created_at',
             key: 'created_at',
             width: '20%',
-        },
-        {
-            title: 'Aggiornato il',
-            dataIndex: 'updated_at',
-            key: 'updated_at',
-            width: '20%',
+            render: (date) => parseDate(date),
         },
         {
             title: 'Azioni',
