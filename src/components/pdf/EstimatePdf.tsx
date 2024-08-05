@@ -7,6 +7,7 @@ import {
     View,
 } from '@react-pdf/renderer'
 import { Fragment } from 'react'
+import { calculatePrice } from '../../modules/utils'
 import { EstimateWithRelated, WorkDone, Workshop } from '../../types/data'
 
 interface Props {
@@ -225,13 +226,7 @@ export default function EstimatePdf({ estimate }: Props) {
                     <Text>Total</Text>
                 </View>
                 <View style={styles.tbody}>
-                    <Text>
-                        {(JSON.parse(estimate.works_done) || []).reduce(
-                            (sum: number, item: WorkDone) =>
-                                sum + item.price * item.quantity,
-                            0
-                        )}
-                    </Text>
+                    <Text>{calculatePrice(estimate)}</Text>
                 </View>
             </View>
         )
