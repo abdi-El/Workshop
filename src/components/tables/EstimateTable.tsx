@@ -23,7 +23,7 @@ const EstinateTable: React.FC = () => {
     const setDrawerOpen = useGlobalStore((state) => state.updateDrawerState)
 
     const [isOpen, setIsOpen] = useState(false)
-    const [estimate, setEstimate] = useState<Estimate>()
+    const [estimate, setEstimate] = useState<EstimateWithRelated>()
 
     const columns: TableColumnsType<EstimateWithRelated> = [
         {

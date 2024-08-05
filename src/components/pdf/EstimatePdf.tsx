@@ -6,47 +6,17 @@ import {
     Text,
     View,
 } from '@react-pdf/renderer'
-import { Fragment, useEffect, useState } from 'react'
-import { Db } from '../../db/utils'
+import { Fragment } from 'react'
 import { EstimateWithRelated, WorkDone, Workshop } from '../../types/data'
 
 interface Props {
-    id: number
+    estimate: EstimateWithRelated
 }
 
-export default function EstimatePdf({ id }: Props) {
+export default function EstimatePdf({ estimate }: Props) {
     let workShopData = JSON.parse(
         localStorage.getItem('settings') || '{}'
     ) as Workshop
-
-    let [estimate, setEstimates] = useState<EstimateWithRelated>()
-
-    async function getEstimate(
-        estiamteId: number
-    ): Promise<EstimateWithRelated[]> {
-        let db = await Db.instance.db
-        return await db.select(`SELECT 
-            e.*,
-            c.name AS customer_name,
-            c.email AS customer_email,
-            c.phone_number AS customer_phone,
-            car.maker AS car_maker,
-            car.model AS car_model,
-            car.number_plate AS car_number_plate
-        FROM 
-            estimates e
-        LEFT JOIN 
-            customers c ON e.customer_id = c.id
-        LEFT JOIN 
-            cars car ON e.car_id = car.id
-        WHERE e.id = ${estiamteId};`)
-    }
-
-    useEffect(() => {
-        getEstimate(id).then((estimates) => {
-            setEstimates(estimates[0])
-        })
-    }, [id])
 
     const styles = StyleSheet.create({
         page: {
