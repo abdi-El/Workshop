@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import Database from '@tauri-apps/plugin-sql'
+import Database from '@tauri-apps/plugin-sql';
 import { SimpleObject } from '../types/common'
 
 export type FkColumns = string[]
@@ -45,9 +45,8 @@ export class Model<DataType> {
             return accumulator + stringValue
         }, '')
 
-        return `UPDATE ${this.tableName} SET ${columnsToUpdate} WHERE id=$${
-            keys.length + 1
-        }`
+        return `UPDATE ${this.tableName} SET ${columnsToUpdate} WHERE id=$${keys.length + 1
+            }`
     }
 
     private getCreateQuery(params: SimpleObject) {
