@@ -14,15 +14,17 @@
     "@react-pdf/renderer": "^3.4.4",
     "@tauri-apps/api": "^1",
     "antd": "^5.19.2",
+    "migrate": "^2.1.0",
     "react": "^18.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.1",
+    "tauri": "^0.15.0",
     "tauri-plugin-sql-api": "https://github.com/tauri-apps/tauri-plugin-sql#v1",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1",
+    "@tauri-apps/cli": "^2.0.0-rc.16",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.2.1",
