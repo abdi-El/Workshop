@@ -1,5 +1,5 @@
 import { message } from 'antd'
-import Database from 'tauri-plugin-sql-api'
+import Database from '@tauri-apps/plugin-sql'
 import { SimpleObject } from '../types/common'
 
 export type FkColumns = string[]

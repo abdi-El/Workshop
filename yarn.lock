@@ -787,10 +787,10 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tauri-apps/api@1.6.0", "@tauri-apps/api@^1":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.6.0.tgz#745b7e4e26782c3b2ad9510d558fa5bb2cf29186"
-  integrity sha512-rqI++FWClU5I2UBp4HXFvl+sBWkdigBkxnpJDQUWttNyG7IZP4FwQGhTNL5EOw0vI8i6eSAJ5frLqO7n7jbJdg==
+"@tauri-apps/api@^2.0.0-rc.0":
+  version "2.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-rc.5.tgz#9e790680f5cf691b0ae4c25c4de6696f340df401"
+  integrity sha512-JWs69pE9NsQdcqTpEVBepAZ08+jgQWuthIiTiaWRq/YlCLgnqq0KfC9sDem55uJ0YpgsytZuyj+m6b6q8oiD2g==
 
 "@tauri-apps/cli-darwin-arm64@2.0.0-rc.16":
   version "2.0.0-rc.16"
@@ -6144,12 +6144,6 @@ tar-stream@^2.1.4:
     fs-constants "^1.0.0"
     inherits "^2.0.3"
     readable-stream "^3.1.1"
-
-"tauri-plugin-sql-api@https://github.com/tauri-apps/tauri-plugin-sql#v1":
-  version "0.0.0"
-  resolved "https://github.com/tauri-apps/tauri-plugin-sql#7ae8847ab1f2252e8b6f0fe44af215ac40664fd6"
-  dependencies:
-    "@tauri-apps/api" "1.6.0"
 
 tauri@^0.15.0:
   version "0.15.0"
