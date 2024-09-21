@@ -787,7 +787,7 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tauri-apps/api@^2.0.0-rc.0":
+"@tauri-apps/api@^2.0.0-rc.0", "@tauri-apps/api@^2.0.0-rc.4":
   version "2.0.0-rc.5"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-2.0.0-rc.5.tgz#9e790680f5cf691b0ae4c25c4de6696f340df401"
   integrity sha512-JWs69pE9NsQdcqTpEVBepAZ08+jgQWuthIiTiaWRq/YlCLgnqq0KfC9sDem55uJ0YpgsytZuyj+m6b6q8oiD2g==
@@ -857,6 +857,13 @@
     "@tauri-apps/cli-win32-arm64-msvc" "2.0.0-rc.16"
     "@tauri-apps/cli-win32-ia32-msvc" "2.0.0-rc.16"
     "@tauri-apps/cli-win32-x64-msvc" "2.0.0-rc.16"
+
+"@tauri-apps/plugin-sql@^2.0.0-rc":
+  version "2.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/plugin-sql/-/plugin-sql-2.0.0-rc.1.tgz#aa21b4744cab72d082297844500c4b53837df964"
+  integrity sha512-F8Wq+L8SdVt76WCU161WCeM5CLkh3gzKblXhXyFFJ8m+BY1P83zVyCxriems3mYULvPPtFwlg8NEgLJycS1HYQ==
+  dependencies:
+    "@tauri-apps/api" "^2.0.0-rc.4"
 
 "@tauri-apps/tauri-inliner@1.14.1":
   version "1.14.1"

@@ -7,9 +7,9 @@ fn main() {
     //         version: 1,
     //         description: "create_initial_tables",
     //         sql: "CREATE TABLE customers (
-    //             id INTEGER PRIMARY KEY, 
-    //             name TEXT NOT NULL, 
-    //             email TEXT UNIQUE NOT NULL, 
+    //             id INTEGER PRIMARY KEY,
+    //             name TEXT NOT NULL,
+    //             email TEXT UNIQUE NOT NULL,
     //             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     //             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     //             phone_number TEXT UNIQUE NOT NULL);
@@ -67,13 +67,13 @@ fn main() {
     //                 update estimates SET updated_at = datetime('now')
     //                 WHERE id = NEW.id;
     //             END;
-            
+
     //             CREATE TRIGGER customers_updated_at AFTER UPDATE ON customers
     //             BEGIN
     //                 update customers SET updated_at = datetime('now')
     //                 WHERE id = NEW.id;
     //             END;
-            
+
     //             CREATE TRIGGER cars_updated_at AFTER UPDATE ON cars
     //             BEGIN
     //                 update cars SET updated_at = datetime('now')
@@ -81,11 +81,12 @@ fn main() {
     //             END;
     //         ",
     //         kind: MigrationKind::Up,
-            
+
     //     }
     // ];
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_sql::Builder::new().build())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
