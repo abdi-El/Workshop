@@ -1,6 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri_plugin_sql::{Builder, Migration, MigrationKind};
+use tauri_plugin_sql::{Migration, MigrationKind};
 
 fn main() {
     let migrations = vec![
@@ -82,12 +82,15 @@ fn main() {
                 END;
             ",
             kind: MigrationKind::Up,
-
-        }
+        },
     ];
 
     tauri::Builder::default()
-        .plugin(tauri_plugin_sql::Builder::new().add_migrations("sqlite:workshop.db", migrations).build())
+        .plugin(
+            tauri_plugin_sql::Builder::new()
+                .add_migrations("sqlite:workshop.db", migrations)
+                .build(),
+        )
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
